@@ -79,7 +79,7 @@ TCP/IP协议或UDP/IP协议
 ﻿
 ﻿
 ﻿
-1.1.5 
+1.1.5
 协议头部结构
 协议头部长度固定16字节，内容如下表所示。
 序号
@@ -110,19 +110,19 @@ TCP/IP协议或UDP/IP协议
 5
 长度
 2
- 
+
 APDU中ASDU字节段的长度，采用小端字节序，低字节在前，ASDU最大长度限制为65535字节
 6
 报文ID
 2
- 
+
 每帧报文的唯一标识，用于识别请求帧和响应帧的对应关系，值由请求方控制，响应帧将采用相同值回复；
 从0开始递增，达到65535后重新从0开始；
 采用小端字节序，低字节在前
 7
 ASDU格式
 1
- 
+
 ASDU数据格式类型判断位；
 ASDU数据内容采用XML格式时，值为 0x00；
 ASDU数据内容采用JSON格式时，值为 0x01
@@ -132,10 +132,10 @@ ASDU数据内容采用JSON格式时，值为 0x01
 0x00
 预留7字节，暂填0
 ﻿
-1.1.6 
+1.1.6
 ASDU结构
 本协议ASDU数据内容采用JSON或XML格式组织（参考
-“1.1.5 
+“1.1.5
 协议头部结构
 ”
 部分，需在协议头部中写明），包含以下通用字段：
@@ -165,11 +165,11 @@ Items
 一个XML的ASDU案例如下：
 8
 <?xml version="1.0" encoding="UTF-8"?>
-<PatrolDevice>  
+<PatrolDevice>
 	<Type>1002</Type>
-	<Command>1</Command>  
+	<Command>1</Command>
 	<Time>2023-01-01 00:00:00</Time>
-	<Items/>  
+	<Items/>
 </PatrolDevice>
 ﻿
 ﻿
@@ -202,16 +202,16 @@ JSON格式请求：
 XML格式请求：
 8
 <?xml version="1.0" encoding="UTF-8"?>
-<PatrolDevice>  
+<PatrolDevice>
 	<Type>100</Type>
-	<Command>100</Command>  
+	<Command>100</Command>
 	<Time>2023-01-01 00:00:00</Time>
 	<Items/>
 </PatrolDevice>
 该请求消息中，Items字段不包含任何参数项。
 ﻿
 1.
-2.2 
+2.2
 使用模式切换
 用户可通过该请求切换机器人使用模式，并参考
 “1.3 状态类ASDU消息集”
@@ -237,9 +237,9 @@ JSON格式请求：
 XML格式请求：
 10
 <?xml version="1.0" encoding="UTF-8"?>
-<PatrolDevice>  
+<PatrolDevice>
 	<Type>1101</Type>
-	<Command>5</Command>  
+	<Command>5</Command>
 	<Time>2023-01-01 00:00:00</Time>
 	<Items>
 		<Mode>0</Mode>
@@ -264,7 +264,7 @@ int
 部分），导航模式下支持执行导航任务。
 ﻿
 1.
-2.3 
+2.3
 运动状态转换
 用户可通过该请求转换机器人运动状态
 ，并参考
@@ -291,9 +291,9 @@ JSON格式请求：
 XML格式请求：
 10
 <?xml version="1.0" encoding="UTF-8"?>
-<PatrolDevice> 
+<PatrolDevice>
   <Type>2</Type>
-	<Command>22</Command>  
+	<Command>22</Command>
 	<Time>2023-01-01 00:00:00</Time>
 	<Items>
       <MotionParam>0</MotionParam>
@@ -321,7 +321,7 @@ RL控制 = 17
  敏捷运动模式下的步态速度响应性能较好，适用于导航等自主算法开发。
 ﻿
 1.
-2.4 
+2.4
 步态切换
 用户可通过该请求切换机器人使用的步态，并参考
 “1.3 状态类ASDU消息集”
@@ -347,9 +347,9 @@ JSON格式请求：
 XML格式请求：
 10
 <?xml version="1.0" encoding="UTF-8"?>
-<PatrolDevice>  
+<PatrolDevice>
 	<Type>2</Type>
-	<Command>23</Command>  
+	<Command>23</Command>
 	<Time>2023-01-01 00:00:00</Time>
 	<Items>
 		<GaitParam>0</GaitParam>
@@ -375,7 +375,7 @@ int
 部分。
 ﻿
 1.
-2.5 
+2.5
 运动控制（轴指令）
 用户可通过该请求控制机器人运动。
 Type字段值
@@ -406,9 +406,9 @@ JSON格式请求：
 XML格式请求：
 15
 <?xml version="1.0" encoding="UTF-8"?>
-<PatrolDevice>  
+<PatrolDevice>
 	<Type>2</Type>
-	<Command>21</Command>  
+	<Command>21</Command>
 	<Time>2023-01-01 00:00:00</Time>
 	<Items>
 		<X>0.0</X>
@@ -468,7 +468,7 @@ float
  建议控制机器人平移或旋转的请求消息发送频率为20Hz。移动步态仅有参数项X、Y、Yaw生效。
 ﻿
 1.
-2.6 
+2.6
 照明灯
 用户可通过该请求开启/关闭机器人前/后侧照明灯，并参考
 “1.3 状态类ASDU消息集”
@@ -495,9 +495,9 @@ JSON格式请求：
 XML格式请求：
 11
 <?xml version="1.0" encoding="UTF-8"?>
-<PatrolDevice>  
+<PatrolDevice>
 	<Type>1101</Type>
-	<Command>2</Command>  
+	<Command>2</Command>
 	<Time>2023-01-01 00:00:00</Time>
 	<Items>
 		<Front>0</Front>
@@ -520,7 +520,7 @@ Back
 机器人后侧照明灯
 ﻿
 1.
-2.7 
+2.7
 自主充电
 用户可通过该请求控制机器人自主充电。
 Type字段值
@@ -564,15 +564,15 @@ int
 结束充电=0
 开始充电=1
 清除充电状态，恢复到空闲状态=2
-【注意】 
-下发参数项 
+【注意】
+下发参数项
 Charge
- 对应参数值 
+ 对应参数值
 2
 （清除充电状态，恢复为空闲状态）的自主充电请求指令后，机器人将强制切断充电电流、强制状态归零、同时清除相关错误记录。该操作具有风险，请谨慎使用。
 ﻿
 1.
-2.8 
+2.8
 休眠模式设置
 用户可通过该请求设置机器人休眠模式。
 Type字段值
@@ -767,7 +767,7 @@ Sleep
 int
 /
 未休眠 = 0
-已休眠 = 
+已休眠 =
 1
 进入休眠中 = 2
 Version
@@ -838,7 +838,7 @@ XML格式响应：
 		<MotionStatus>
 			<Roll>0.0</Roll>
 			<Pitch>0.0</Pitch>
-			<Yaw>0.0</Yaw>  
+			<Yaw>0.0</Yaw>
 			<OmegaZ>0.0</OmegaZ>
 			<LinearX>0.0</LinearX>
 			<LinearY>0.0</LinearY>
@@ -935,7 +935,7 @@ Joint 为长度为 16 的数组，按顺序依次表示：LeftFrontHipX、LeftFr
 ●
 其余各参数项左侧的星号*表示省略的参数名称的位置标识信息，Left/Right的含义为左/右侧，左侧为电池仓所在的一侧；Front/Back含义为前/后侧，后侧为有硬急停按钮的一侧。例如，LeftBackHipX表示左后侧摆关节，该参数值的含义为左后侧侧摆关节的角度，其它参数的名称与含义依此类推。
 ﻿
-1.3.1.3 
+1.3.1.3
 设备状态上报
 该消息集以2Hz的频率主动上报，用户可通过该上报获取机器人当前的设备状态信息。
 Type字段值
@@ -979,7 +979,7 @@ JSON格式响应：
 				"chargeRight":false
 			},
 			"DeviceTemperature": {
-                "Motor": [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0], 
+                "Motor": [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
                 "Driver": [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
 				"LeftFrontHipXMotor": 0.0,
 				"LeftFrontHipXDriver": 0.0,
@@ -1220,7 +1220,7 @@ Voltage
 电池电压
 float
 V
- 
+
 BatteryLevel
 电池剩余电量百分比
 int
@@ -1230,7 +1230,7 @@ battery_temperature
 电池温度
 float
 ℃
- 
+
 charge
 电池充电状态
 bool
@@ -1248,7 +1248,7 @@ Voltage*
 电池电压
 float
 V
- 
+
 BatteryLevel*
 电池剩余电量百分比
 int
@@ -1258,13 +1258,13 @@ battery_temperature*
 电池温度
 float
 ℃
- 
+
 charge*
 电池充电状态
 bool
 /
 true=充电中, false=未在充电
-[4] BatteryStatus参数组中各参数项右侧的星号*表示省略的参数名称的位置标识信息，Left/Right的含义为左/右侧，右侧为靠近硬急停按钮的一侧。例如，BatteryLevelRight含义为右侧（靠近硬急停按钮一侧）电池的剩余电量百分比，其它参数的含义依此类推。 
+[4] BatteryStatus参数组中各参数项右侧的星号*表示省略的参数名称的位置标识信息，Left/Right的含义为左/右侧，右侧为靠近硬急停按钮的一侧。例如，BatteryLevelRight含义为右侧（靠近硬急停按钮一侧）电池的剩余电量百分比，其它参数的含义依此类推。
 DeviceTemperature
 [5]
 参数组反馈各关节电机和驱动器的温度信息：
@@ -1277,22 +1277,22 @@ Motor
 电机温度
 array<float>
 ℃
- 
+
 Driver
 电机驱动器温度
 array<float>
 ℃
- 
+
 *Motor
 电机温度
 float
 ℃
- 
+
 *Driver
 电机驱动器温度
 float
 ℃
- 
+
 [5] DeviceTemperature参数组中：
 ●
 Motor和Driver
@@ -1333,7 +1333,7 @@ Speed
 地面速度
 float
 km/h
- 
+
 Course
 机器人在世界坐标系下的航向
 float
@@ -1348,9 +1348,9 @@ NumSatellites
 参与定位的卫星数量
 int
 个
- 
+
 Altitude
-机器人的海拔高度 
+机器人的海拔高度
 float
 m
 ﻿
@@ -1378,7 +1378,7 @@ VisibleSatellites
 可见卫星的总数
 int
 个
- 
+
 DevEnable参数组反馈机器人内部器件的运行状态，其中部分参数项含义如下：
 参数项
 含义
@@ -1412,20 +1412,20 @@ Temperature
 CPU最高温度
 float
 ℃
- 
+
 FrequencyInt
 小核（A55）CPU占用率
 float
 %
- 
+
 FrequencyApp
 大核（A76）CPU占用率
 float
 %
- 
+
 [6] CPU参数组中，AOS、NOS、GOS分别对应机器人内部三个主机的CPU，其中GOS仅在山猫M20 Pro上有效。
 ﻿
-1.3.2 
+1.3.2
 获取异常状态信息
 用户可通过该上报获取机器人当前的异常状态信息。
 Type字段值
@@ -1434,7 +1434,7 @@ Command字段值
 1002
 3
 获取异常状态信息
-【注意】 
+【注意】
 一般情况下，机器人会主动向发送心跳指令（参考
 "心跳指令"
 部分）的IP和端口以2Hz的固定频率上报；当状态发生变更时（如异常发生或异常解除），机器人会额外进行一次上报。
@@ -1445,7 +1445,7 @@ JSON格式响应：
 		"Type": 1002,
 		"Command": 3,
 		"Time": "2023-01-01 00:00:00",
-		"Items": {   
+		"Items": {
 			"ErrorList":[
 			{
 				"errorCode": errorCode,
@@ -1497,7 +1497,7 @@ int
 以bit位作为部件号
 [7] 当关节或电池发生异常时用于确定发生异常的具体关节或电池。关节编号可参考
 "1.3.1.2 运控状态上报"
-部分中的 
+部分中的
 <MotorStatus>
 参数组，按照FL/FR/BL/BR+HipX/HipY/Knee/Wheel的顺序从低位到高位进行编号，例如0x21（0000 0000 0010 0001）则表示：第一个关节（第0位，LeftFrontHipX关节）和第6个关节（第5位，RightFrontHipY）出现errorCode所表示的错误，其它关节的位号依此类推；电池编号的第0位表示后侧电池（靠近硬急停按钮的一侧），第1位表示前侧电池。
 errorCode的值对应的含义如下表所示：
@@ -1606,7 +1606,7 @@ CPU温度过高保护
 ﻿
 ﻿
 ﻿
-1.3.3 
+1.3.3
 休眠状态及设置信息查询
 用户可通过该请求查询机器人当前的休眠状态及设置信息。
 Type字段值
@@ -1630,9 +1630,9 @@ JSON格式请求：
 XML格式请求：
 9
 <?xml version="1.0" encoding="UTF-8"?>
-<PatrolDevice>  
+<PatrolDevice>
 	<Type>1101</Type>
-	<Command>7</Command>  
+	<Command>7</Command>
 	<Time>2023-01-01 00:00:00</Time>
 	<Items>
 	</Items>
@@ -1691,9 +1691,9 @@ int
 [5, 30]
 ﻿
 ﻿
-1.4 
+1.4
 巡检类ASDU消息集
-【注意】 
+【注意】
 本节包含的ASDU消息集仅M20 Pro机器人支持，M20机器人不支持本节指令。
 ﻿
 1.4.1 初始化和重置定位
@@ -1723,9 +1723,9 @@ JSON格式请求：
 XML格式请求：
 13
 <?xml version="1.0" encoding="UTF-8"?>
-<PatrolDevice>  
+<PatrolDevice>
 	<Type>2101</Type>
-	<Command>1</Command>  
+	<Command>1</Command>
 	<Time>2023-01-01 00:00:00</Time>
 	<Items>
 		<PosX>0.0</PosX>
@@ -1751,8 +1751,8 @@ Yaw
 下绕Z轴旋转的姿态角
 float
 rad
-[8] 
-机器人在地图坐标系和像素坐标系中的位置坐标换算公式如下： 
+[8]
+机器人在地图坐标系和像素坐标系中的位置坐标换算公式如下：
 ﻿
 ﻿
 ﻿
@@ -1801,7 +1801,7 @@ int
 /
  初始化定位成功=0
 初始化定位失败=1
-【注意】 
+【注意】
 由于重定位需要一些时间，立即反馈的初始化定位指令的结果会是“1”（初始化定位失败），这并不影响实际定位情况，建议间隔5s后查询“
 获取导航中的感知软件状态信息
 ”接口中的定位情况。
@@ -1830,9 +1830,9 @@ JSON格式请求：
 XML格式请求：
 9
 <?xml version="1.0" encoding="UTF-8"?>
-<PatrolDevice>  
+<PatrolDevice>
 	<Type>1007</Type>
-	<Command>2</Command>  
+	<Command>2</Command>
 	<Time>2023-01-01 00:00:00</Time>
 	<Items>
 	</Items>
@@ -1920,9 +1920,9 @@ JSON格式请求：
 XML格式请求：
 9
 <?xml version="1.0" encoding="UTF-8"?>
-<PatrolDevice>  
+<PatrolDevice>
 	<Type>2002</Type>
-	<Command>1</Command>  
+	<Command>1</Command>
 	<Time>2023-01-01 00:00:00</Time>
 	<Items>
 	</Items>
@@ -1981,7 +1981,7 @@ Command字段值
 1003
 1
 下发导航任务
-【注意】 
+【注意】
 机器人收到该请求后，将会先执行用户下发的导航任务（成功/失败/取消），然后才会发送携带执行结果的响应消息给客户端。
 请求
 JSON格式请求：
@@ -2010,27 +2010,27 @@ JSON格式请求：
 XML格式请求：
 21
 <?xml version="1.0" encoding="UTF-8"?>
-<PatrolDevice>  
+<PatrolDevice>
 	<Type>1003</Type>
-	<Command>1</Command>  
+	<Command>1</Command>
 	<Time>2023-01-01 00:00:00</Time>
 	<Items>
-		<Value>0</Value>  
-		<MapID>0</MapID>  
-		<PosX>0.0</PosX>  
-		<PosY>0.0</PosY>  
-		<PosZ>0.0</PosZ>  
-		<AngleYaw>0.0</AngleYaw>  
-		<PointInfo>0</PointInfo>  
-		<Gait>0</Gait>  
-		<Speed>0</Speed>  
-		<Manner>0</Manner>  
-		<ObsMode>0</ObsMode>  
-		<NavMode>0</NavMode>  
+		<Value>0</Value>
+		<MapID>0</MapID>
+		<PosX>0.0</PosX>
+		<PosY>0.0</PosY>
+		<PosZ>0.0</PosZ>
+		<AngleYaw>0.0</AngleYaw>
+		<PointInfo>0</PointInfo>
+		<Gait>0</Gait>
+		<Speed>0</Speed>
+		<Manner>0</Manner>
+		<ObsMode>0</ObsMode>
+		<NavMode>0</NavMode>
 	</Items>
 </PatrolDevice>
 该请求消息中，Items字段包含多个参数项。
-【注意】 
+【注意】
 导航任务参数项，按照类型分为
 点属性参数项
 和
@@ -2048,7 +2048,7 @@ Value
 导航任务目标点编号
 int
 /
-使用默认值0 
+使用默认值0
 MapID
 目标点所在栅格地图编号
 int
@@ -2058,12 +2058,12 @@ PosX/PosY/PosZ
 目标点在地图坐标系中的位置坐标
 float
 m
- 
+
 AngleYaw
 目标点在地图坐标系中的朝向
 float
 rad
- 
+
 PointInfo
 目标点类型
 [9]
@@ -2106,7 +2106,7 @@ int
 /
 直线导航 = 0
 自主导航 = 1
-[9] 
+[9]
 目标点分为过渡点、任务点、充电点三种类型：
 1.
 过渡点
@@ -2125,17 +2125,17 @@ int
 楼梯步态：
 适用于通过斜坡（≤30°）和楼梯（≤25cm）等障碍地形的步态。
 [11] 无论导航模块的停避障功能是否开启，地形图的停避障功能作为机器狗自身的安全模块将会始终保持开启。当导航的停避障功能开启时，对于直线导航，该功能表现为停障，对于自主导航，该功能表现为避障。
-[12] 
+[12]
 使用直线导航时，若两点间无法以直线的方式进行全局规划，会返回导航任务执行失败；使用自主导航时，应根据地形复杂度设置路径点，地形复杂度越高，导航路径执行的风险越高，则应当设置更密集的路径点；尽量使用多段直线导航代替自主导航。
 ﻿
 ﻿
-【注意】 
+【注意】
 使用直线导航方式控制机器人攀爬楼梯时，建议
 将目标点位标到距离最后一阶楼梯边缘45cm以外，
 同时需要关闭导航的
 停避障功能
 。
-【注意】 
+【注意】
 使用自主导航方式时，仅支持使用平地步态与低速模式
 。
 响应
@@ -2156,9 +2156,9 @@ JSON格式响应：
 XML格式响应：
 12
 <?xml version="1.0" encoding="UTF-8"?>
-<PatrolDevice>  
+<PatrolDevice>
 	<Type>1003</Type>
-	<Command>1</Command>  
+	<Command>1</Command>
 	<Time>2023-01-01 00:00:01</Time>
 	<Items>
 		<Value>0</Value>
@@ -2299,9 +2299,9 @@ JSON格式请求：
 XML格式请求：
 8
 <?xml version="1.0" encoding="UTF-8"?>
-<PatrolDevice>  
+<PatrolDevice>
 	<Type>1004</Type>
-	<Command>1</Command>  
+	<Command>1</Command>
 	<Time>2023-01-01 00:00:00</Time>
 	<Items/>
 </PatrolDevice>
@@ -2365,11 +2365,11 @@ JSON格式请求：
 XML格式请求：
 8
 <?xml version="1.0" encoding="UTF-8"?>
-<PatrolDevice>  
+<PatrolDevice>
 	<Type>1007</Type>
-	<Command>1</Command>  
+	<Command>1</Command>
 	<Time>2023-01-01 00:00:00</Time>
-	<Items/>  
+	<Items/>
 </PatrolDevice>
 该请求消息中，Items字段不包含任何参数项。
 响应
@@ -2390,9 +2390,9 @@ JSON格式响应：
 XML格式响应：
 12
 <?xml version="1.0" encoding="UTF-8"?>
-<PatrolDevice>  
+<PatrolDevice>
 	<Type>1007</Type>
-	<Command>1</Command>  
+	<Command>1</Command>
 	<Time>2023-01-01 00:00:01</Time>
 	<Items>
 		<Value>0</Value>
@@ -2509,7 +2509,7 @@ A34D
 持续停障异常，导航失败
 0xA40F
 里程计模块异常：里程计结果发布时间异常
-【注意】 
+【注意】
 若查询发现导航任务无法执行，请检查导航程序是否未启动或存在异常。
 ﻿
 1.4.7 导航异常状态提示
@@ -2603,7 +2603,7 @@ A34B
 0xA40F
 里程计模块异常：里程计结果发布时间异常
 ﻿
-1.5 
+1.5
 通用协议接口调用状态响应ASDU消息集
 该响应消息集与请求的消息集一一对应，在消息请求后自动响应。用户可通过该响应获取协议接口的调用状态。
 JSON格式响应：
@@ -2640,13 +2640,13 @@ Command字段值
 【注意】
  对于本章"1 本体监控协议"中的协议，协议请求下发后，返回的
 通用协议接口调用状态响应消息集
-与发送的请求消息集一一对应；且响应消息中的 
+与发送的请求消息集一一对应；且响应消息中的
 Type
- 和 
+ 和
 Command
- 字段值与对应请求消息中的 
+ 字段值与对应请求消息中的
 Type
- 和 
+ 和
 Command
  字段值相同。
 Items字段中参数项的值与含义如下（ErrorMessage与ErrorCode一一对应，用作对ErrorCode的补充描述）：
@@ -2703,7 +2703,7 @@ Internal error
 内部错误
 内部文件打开失败，内部文件解析失败等
 【注意】
- 其他非通用 
+ 其他非通用
 ErrorCode
  错误码请参照对应指令章节中的具体说明。
 ﻿
@@ -2756,7 +2756,7 @@ su
 ﻿
 ﻿
 2.2 运动相关话题
-【注意】 
+【注意】
 本节话题依赖于
 rl_deploy
 服务，若话题消息下发无响应或收不到话题消息，可参考
@@ -2818,7 +2818,7 @@ RL控制
  RL控制状态下，分为标准运动模式和敏捷运动模式：标准运动模式适用于手动控制；敏捷运动模式下的步态速度响应性能较好，适用于导航等自主算法开发。
 开发者如需在自己的程序中订阅该话题，需要在程序中定义该自定义消息的结构。
 ﻿
-2.2.2 
+2.2.2
 运控步态切换
 该话题在运动程序启动后激活，开发者可在该话题中发布消息，以切换
 运控步态
@@ -2859,7 +2859,7 @@ gait
 0x3003
 开发者如需在自己的程序中订阅该话题，需要在程序中定义该自定义消息的结构。
 ﻿
-2.2.3 
+2.2.3
 获取运动基本状态和步态
 该话题在开机后即有消息发布，开发者可订阅话题消息，以获取
 运动基本状态和步态
@@ -2869,7 +2869,7 @@ gait
 消息类型
 频率
 /MOTION_INFO
-机器人的运动基本状态和步态 
+机器人的运动基本状态和步态
 drdds/msg/MotionInfo
 20Hz
 话题
@@ -2892,7 +2892,7 @@ MetaType header
 MotionInfoValue data
   float32 vel_x
   float32 vel_y
-  float32 vel_yaw 
+  float32 vel_yaw
   float32 height
   MotionStateValue data
     int32 state
@@ -3020,9 +3020,9 @@ MetaType header
     int32 sec
     uint32 nsec
 NavCmdValue data
-  float32 x_vel     
-  float32 y_vel    
-  float32 yaw_vel  
+  float32 x_vel
+  float32 y_vel
+  float32 yaw_vel
 消息内容对应的字段含义如下表所示：
 字段
 含义
@@ -3141,7 +3141,7 @@ uint32
 机器人异常
 发生软急停
 ﻿
- 
+
 附录1 UDP示例代码
 发送心跳指令
 79

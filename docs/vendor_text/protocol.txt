@@ -1,5 +1,5 @@
 basic_server 通信协议总览
-本文档介绍山猫 M20 由 basic_server 服务向外提供的通讯协议。 
+本文档介绍山猫 M20 由 basic_server 服务向外提供的通讯协议。
 完整协议定义和具体指令格式查询请参考
 软件开发指南
 。
@@ -110,7 +110,7 @@ ASDU数据内容采用JSON格式时，值为 0x01
 1.6 ASDU结构
 本协议ASDU数据内容采用JSON或XML格式组织（参考"
 1.1.5
- 
+
 协议头部结构
 "部分，需在协议头部中写明），包含以下通用字段：
 字段
@@ -137,11 +137,11 @@ Items
 一个XML的ASDU案例如下：
 8
 <?xml version="1.0" encoding="UTF-8"?>
-<PatrolDevice>  
+<PatrolDevice>
 	<Type>1002</Type>
-	<Command>1</Command>  
+	<Command>1</Command>
 	<Time>2023-01-01 00:00:00</Time>
-	<Items/>  
+	<Items/>
 </PatrolDevice>
 ﻿
 ﻿
@@ -167,7 +167,7 @@ Type
 设备使能
 2=照明灯, 5=模式切换, 6=休眠设置, 7=休眠配置查询
 文档中出现的所有
- Type / Command 
+ Type / Command
 均为
 十进制数字
 。
@@ -307,7 +307,7 @@ Not allowed operation
 0xE009
 57353
 Operation failure
-操作失败，建议查看 
+操作失败，建议查看
 Type=1002, Cmd=3
  错误详情
 0xE00A

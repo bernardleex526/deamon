@@ -1,7 +1,7 @@
 /**
  * @file robot_nexus.cpp
  * @brief ROS2机器人中枢控制节点
- * 
+ *
  * 功能：
  * - 订阅激光雷达数据，追踪目标
  * - 通过UDP发送雷达数据到Android App
@@ -34,7 +34,7 @@
 class RobotNexusNode : public rclcpp::Node
 {
 public:
-    RobotNexusNode() 
+    RobotNexusNode()
         : Node("robot_nexus"),
           lidar_tracker_(shared_state_),
           direct_controller_(shared_state_),
@@ -79,20 +79,20 @@ public:
         }
         lidar_tracker_.configure(tracker_config);
         shared_state_.setTarget(tracker_config.follow_distance, 0.0);
-        
+
         // 获取参数
         shared_state_.active.store(this->get_parameter("active").as_bool());
         bool enable_opencv = this->get_parameter("enable_opencv").as_bool();
         bool enable_web = this->get_parameter("enable_web").as_bool();
         bool enable_kalman = this->get_parameter("enable_kalman").as_bool();
         std::string web_root = this->get_parameter("web_root").as_string();
-        
+
         RCLCPP_INFO(this->get_logger(), "节点启动 - 跟随: %s, OpenCV: %s, Web: %s, 卡尔曼: %s",
                     shared_state_.active.load() ? "开启" : "关闭",
                     enable_opencv ? "开启" : "关闭",
                     enable_web ? "开启" : "关闭",
                     enable_kalman ? "开启" : "关闭");
-        
+
         // 初始化发布者和订阅者
         cmd_vel_pub_ = this->create_publisher<geometry_msgs::msg::Twist>("/cmd_vel", 1);
         operator_vel_pub_ = create_publisher<std_msgs::msg::Float64MultiArray>("~/operator_velocity", 1);
@@ -136,12 +136,12 @@ public:
                     shared_state_.setTarget(point->x, point->y);
                 }
             });
-        
+
         // 设置日志回调
         auto log_cb = [this](const std::string& msg) {
             RCLCPP_INFO(this->get_logger(), "%s", msg.c_str());
         };
-        
+
         // 设置速度发布回调
         auto vel_cb = [this](const geometry_msgs::msg::Twist& cmd) {
             cmd_vel_pub_->publish(cmd);
@@ -151,7 +151,7 @@ public:
                 operator_vel_pub_->publish(tagged);
             }
         };
-        
+
         // 配置雷达追踪器
         lidar_tracker_.setOpenCVEnabled(enable_opencv);
         lidar_tracker_.setKalmanEnabled(enable_kalman);
@@ -160,10 +160,10 @@ public:
             android_comm_.sendScanData();
             web_comm_.broadcastData();
         });
-        
+
         // 配置直接控制器
         direct_controller_.setVelocityCallback(vel_cb);
-        
+
         // 配置Web通讯
         if (enable_web) {
             web_comm_.setLogCallback(log_cb);
@@ -185,7 +185,7 @@ public:
                 msg.data = action;
                 action_cmd_pub_->publish(msg);
                 RCLCPP_INFO(this->get_logger(), "发布动作指令: %s", action.c_str());
-                
+
                 if (action == "liedown") {
                     std::thread([this]() {
                         std::this_thread::sleep_for(std::chrono::seconds(5));
@@ -199,26 +199,26 @@ public:
                 }
             });
             web_comm_.start();
-            
+
             std::string local_ip = web_comm_.getLocalIP();
             RCLCPP_INFO(this->get_logger(), "Web界面: http://%s:%d", local_ip.c_str(), HTTP_PORT);
         }
-        
+
         // 配置Android通讯
         android_comm_.setLogCallback(log_cb);
         if (get_parameter("enable_android").as_bool()) {
             android_comm_.start();
         }
-        
+
         // 创建直接控制定时器（10Hz）
         direct_control_timer_ = this->create_wall_timer(
             std::chrono::milliseconds(100),
             std::bind(&DirectController::timerCallback, &direct_controller_)
         );
-        
+
         RCLCPP_INFO(this->get_logger(), "机器人中枢节点 'robot_nexus' 已启动");
     }
-    
+
     ~RobotNexusNode()
     {
         lidar_tracker_.destroyWindows();
@@ -227,13 +227,13 @@ public:
 private:
     // 共享状态
     SharedState shared_state_;
-    
+
     // 功能模块
     LidarTracker lidar_tracker_;
     DirectController direct_controller_;
     WebCommManager web_comm_;
     AndroidCommManager android_comm_;
-    
+
     // ROS2成员
     rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_pub_;
     rclcpp::Publisher<std_msgs::msg::String>::SharedPtr action_cmd_pub_;
@@ -244,7 +244,7 @@ private:
     rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr operator_target_sub_;
     rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr operator_vel_pub_;
     double operator_session_{0};
-    
+
     void scanCallback(const sensor_msgs::msg::LaserScan::SharedPtr scan_msg)
     {
         lidar_tracker_.processScan(scan_msg);
@@ -255,10 +255,10 @@ int main(int argc, char** argv)
 {
     setlocale(LC_ALL, "");
     rclcpp::init(argc, argv);
-    
+
     auto node = std::make_shared<RobotNexusNode>();
     rclcpp::spin(node);
-    
+
     rclcpp::shutdown();
     return 0;
 }

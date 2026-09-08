@@ -37,15 +37,15 @@ public:
     using LogCallback = std::function<void(const std::string&)>;
     using DirectCmdCallback = std::function<void(double, double, double)>;
     using ActionCmdCallback = std::function<void(const std::string&)>;
-    
+
     WebCommManager(SharedState& state) : state_(state) {}
     ~WebCommManager() { stop(); }
-    
+
     void setLogCallback(LogCallback cb) { log_callback_ = std::move(cb); }
     void setDirectCmdCallback(DirectCmdCallback cb) { direct_cmd_callback_ = std::move(cb); }
     void setActionCmdCallback(ActionCmdCallback cb) { action_cmd_callback_ = std::move(cb); }
     void setWebRoot(const std::string& root) { web_root_ = root; }
-    
+
     void autoDetectWebRoot(const std::vector<std::string>& paths) {
         if (!web_root_.empty()) return;
         for (const auto& path : paths) {
@@ -53,7 +53,7 @@ public:
             if (test.good()) { web_root_ = path; break; }
         }
     }
-    
+
     std::string getLocalIP();
     void start();
     void stop();
@@ -63,7 +63,7 @@ private:
     SharedState& state_;
     std::string web_root_;
     std::atomic<bool> running_{false};
-    
+
     std::unique_ptr<httplib::Server> http_server_;
     std::thread http_thread_;
     SOCKET ws_server_socket_ = INVALID_SOCKET;
@@ -73,7 +73,7 @@ private:
     LogCallback log_callback_;
     DirectCmdCallback direct_cmd_callback_;
     ActionCmdCallback action_cmd_callback_;
-    
+
     void log(const std::string& msg) { if (log_callback_) log_callback_(msg); }
     void startWebSocketServer();
     void wsAcceptLoop();

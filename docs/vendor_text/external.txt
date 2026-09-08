@@ -3,7 +3,7 @@
 basic_server 协议
 （ 由 basic_server 对外提供的
 基于 APDU/ASDU 帧协议 的 UDP/TCP 接口
-）和 
+）和
 ROS2 接口
 （基于 DrDDS 中间件的话题/服务）。开发者应根据接入条件、功能需求和技术栈选择合适的方式。
 目录
@@ -14,7 +14,7 @@ ROS2 接口
 5. 调用逻辑差异
 ﻿
 ﻿
-1. 
+1.
 通信架构概述
 机器人系统内部各进程之间通过 DrDDS（基于 FastDDS 的中间件）通信，与 ROS2 foxy 兼容；对外由
 basic_server
@@ -56,9 +56,9 @@ TCP 30001端口
 ●
 每帧 = 帧头（4B）+ 数据长度（2B）+ 消息ID（2B）+ 格式（1B）+ 保留（7B）+ ASDU（N 字节）
 ●
-ASDU 以 
+ASDU 以
 PatrolDevice
- 为根对象，包含 
+ 为根对象，包含
 Type
 （业务大类）、
 Command
@@ -139,7 +139,7 @@ basic_server 通信协议总览
 ：出于计算资源和系统完整性的考虑，开发者应尽量避免在AOS或NOS主机上开发。
 ﻿
 版本兼容说明
-山猫 M20/M20 Pro 使用的操作系统版本为 Ubuntu 20.04，其上运行的 DDS 为 DrDDS（基于 
+山猫 M20/M20 Pro 使用的操作系统版本为 Ubuntu 20.04，其上运行的 DDS 为 DrDDS（基于
 FastDDS 封装
 ），ROS版本均为 ROS2 foxy。
 如果想让外部主机和山猫 M20 正常通信，需保证

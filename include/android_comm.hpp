@@ -30,10 +30,10 @@
 class AndroidCommManager {
 public:
     using LogCallback = std::function<void(const std::string&)>;
-    
+
     AndroidCommManager(SharedState& state) : state_(state) {}
     ~AndroidCommManager() { stop(); }
-    
+
     void setLogCallback(LogCallback cb) { log_callback_ = std::move(cb); }
     void start();
     void stop();
@@ -45,13 +45,13 @@ private:
     SOCKET udp_recv_socket_ = INVALID_SOCKET;
     std::thread recv_thread_;
     std::atomic<bool> running_{false};
-    
+
     std::mutex client_mutex_;
     std::string client_ip_;
     bool client_connected_ = false;
-    
+
     LogCallback log_callback_;
-    
+
     void log(const std::string& msg) { if (log_callback_) log_callback_(msg); }
     void receiveLoop();
     void parseCommand(const std::string& json);

@@ -80,17 +80,17 @@ struct SharedState {
     std::mutex target_mutex;
     double target_x = FOLLOW_DIST;
     double target_y = 0.0;
-    
+
     // 速度指令缓存 (需要保护)
     std::mutex velocity_mutex;
     double cached_vx = 0.0;
     double cached_vy = 0.0;
     double cached_wz = 0.0;
-    
+
     // 雷达点云缓存 (需要保护)
     std::mutex scan_data_mutex;
     std::vector<std::pair<double, double>> cached_points;
-    
+
     // 直接控制指令 (需要保护)
     std::mutex direct_cmd_mutex;
     double direct_vx = 0.0;
@@ -98,26 +98,26 @@ struct SharedState {
     double direct_wz = 0.0;
     std::chrono::steady_clock::time_point direct_received{};
     double direct_timeout = 0.3;
-    
+
     // 原子状态
     std::atomic<bool> active{false};
     std::atomic<bool> is_moving_enabled{false};
     std::atomic<int> control_mode{MODE_FOLLOW};
-    
+
     // 获取目标位置
     void getTarget(double& x, double& y) {
         std::lock_guard<std::mutex> lock(target_mutex);
         x = target_x;
         y = target_y;
     }
-    
+
     // 设置目标位置
     void setTarget(double x, double y) {
         std::lock_guard<std::mutex> lock(target_mutex);
         target_x = x;
         target_y = y;
     }
-    
+
     // 获取速度缓存
     void getVelocity(double& vx, double& vy, double& wz) {
         std::lock_guard<std::mutex> lock(velocity_mutex);
@@ -125,7 +125,7 @@ struct SharedState {
         vy = cached_vy;
         wz = cached_wz;
     }
-    
+
     // 设置速度缓存
     void setVelocity(double vx, double vy, double wz) {
         std::lock_guard<std::mutex> lock(velocity_mutex);
@@ -133,7 +133,7 @@ struct SharedState {
         cached_vy = vy;
         cached_wz = wz;
     }
-    
+
     // 获取直接控制指令
     void getDirectCmd(double& vx, double& vy, double& wz) {
         std::lock_guard<std::mutex> lock(direct_cmd_mutex);
@@ -145,7 +145,7 @@ struct SharedState {
             vx = vy = wz = 0.0;
         }
     }
-    
+
     // 设置直接控制指令
     void setDirectCmd(double vx, double vy, double wz) {
         std::lock_guard<std::mutex> lock(direct_cmd_mutex);
@@ -154,13 +154,13 @@ struct SharedState {
         direct_wz = wz;
         direct_received = std::chrono::steady_clock::now();
     }
-    
+
     // 获取点云数据
     std::vector<std::pair<double, double>> getPoints() {
         std::lock_guard<std::mutex> lock(scan_data_mutex);
         return cached_points;
     }
-    
+
     // 设置点云数据
     void setPoints(std::vector<std::pair<double, double>>&& points) {
         std::lock_guard<std::mutex> lock(scan_data_mutex);
@@ -188,20 +188,20 @@ public:
         }
         return 0;
     }
-    
+
     // 解析x, y坐标
     static bool parseXY(const std::string& json, double& x, double& y) {
         x = extractNumber(json, "x");
         y = extractNumber(json, "y");
         return true;
     }
-    
+
     // 检查消息类型
     static bool hasType(const std::string& json, const std::string& type) {
         return json.find("\"type\":\"" + type + "\"") != std::string::npos ||
                json.find("\"type\": \"" + type + "\"") != std::string::npos;
     }
-    
+
     // 检查布尔值
     static bool getBool(const std::string& json, const std::string& key) {
         return json.find("\"" + key + "\":true") != std::string::npos ||

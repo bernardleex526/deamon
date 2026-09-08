@@ -22,7 +22,7 @@
 ●
 三主机之间通过交换机互联
 ●
-外部客户端可通过有线网络接入 
+外部客户端可通过有线网络接入
 10.21.31.0/24
  网段
 2.2 WiFi
@@ -63,21 +63,21 @@ x11vnc -display :0 -forever -shared -noxdamage
 2.
 使用 MobaXterm 连接 VNC：
 a.
-点击 
+点击
 Session
 ﻿
 b.
-选择 
+选择
 VNC
  模式
 c.
-输入 
+输入
 [hostname_ip]
-（如 
+（如
 10.21.31.106
 ）
 d.
-点击 
+点击
 OK
  连接
 注意

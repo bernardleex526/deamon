@@ -1,8 +1,8 @@
 运动控制（basic_server 协议）
 山猫 M20 四足机器人对外开放运动控制功能的调用接口。开发者可通过 basic_server 协议（UDP/TCP）或 ROS2 话题调用运动控制功能。
-本章节主要描述通过 
+本章节主要描述通过
 basic_server 协议（UDP/TCP）
-调用运动控制的逻辑。如需在机载进行算法开发（导航、SLAM 等），参见 
+调用运动控制的逻辑。如需在机载进行算法开发（导航、SLAM 等），参见
 运动控制（ROS2）
 。
 ROS2接口的调用逻辑和basic_server 协议略有差别。
@@ -60,7 +60,7 @@ RL 控制
 临时过渡状态
 ，不是可以持续保持的状态。机器人会自动从
 站立（1）
-进入 
+进入
 RL 控制（17）
 ，此时才能执行移动控制和步态切换。
 ﻿
@@ -121,7 +121,7 @@ RL 控制（17）
 ﻿
 4. 下发运控指令 —— basic_server 协议
 4.1 协议概述
-在 basic_server 协议中，运动控制统一使用 
+在 basic_server 协议中，运动控制统一使用
 Type=2
 ，通过以下子命令（Command）区分功能：
 Command
@@ -150,13 +150,13 @@ TCP/UDP
 UDP 优先
 仅导航模式
 推荐
-：高频速度指令（Cmd=21/25）使用 UDP（端口 
+：高频速度指令（Cmd=21/25）使用 UDP（端口
 30000
-），以获得最低延迟；状态切换类指令使用 TCP（端口 
+），以获得最低延迟；状态切换类指令使用 TCP（端口
 30001
 ）以保证可靠性。
 文档中出现的所有
- Type / Command 
+ Type / Command
 均为
 十进制数字
 。
@@ -185,12 +185,12 @@ XML 请求
         <MotionParam>1</MotionParam>
     </Items>
 </PatrolDevice>
-通过 
+通过
 MotionParam
  字段控制机器人的运动状态。
 下发控制指令前，请通过 BasicStatus 上报（
 Type=1002 Cmd=6
-）读取 
+）读取
 MotionState
  字段，结合状态转换逻辑（第 5 节）来判断当前机器人是否处于可下发运动状态切换指令的运动状态。
 MotionParam 值(十进制)
@@ -207,7 +207,7 @@ MotionParam 值(十进制)
 仅在 RL 控制状态（MotionState=17）且静止时有效
 下发控制指令后，请通过 BasicStatus 上报（
 Type=1002 Cmd=6
-）确认 
+）确认
 MotionState
  字段是否已反映目标状态（如站立/趴下转换完成）。
 ﻿
@@ -235,7 +235,7 @@ XML 请求
         <GaitParam>4097</GaitParam>
     </Items>
 </PatrolDevice>
-通过 
+通过
 GaitParam
  字段切换机器人的步态模式。
 调用逻辑建议
@@ -278,7 +278,7 @@ GaitParam
 敏捷运动模式下的步态速度响应性能较好，适用于导航等自主算法开发。
 下发控制指令后，请通过 BasicStatus 上报（
 Type=1002 Cmd=6
-）确认 
+）确认
 Gait
  字段是否已切换为目标步态值。
 ﻿
@@ -351,9 +351,9 @@ float
 ●
 下发控制指令后，可通过运动数据上报（
 Type=1002 Cmd=4
-）确认 
+）确认
 MotionStatus.LinearX
- / 
+ /
 LinearY
  等字段是否已反映目标运动状态。
 ﻿
@@ -440,7 +440,7 @@ Yaw角速度(rad/s)
 ﻿
 5. 状态与数据上报 —— basic_server 协议
 5.1 基础状态上报（Type=1002 Cmd=6）
-基础状态由 RobotServer 以 
+基础状态由 RobotServer 以
 2Hz
  频率主动推送，包含运动状态、步态、使用模式等聚合信息。需先发送心跳指令（
 Type=100 Cmd=100
@@ -477,14 +477,14 @@ int
 Gait
 int
 参数值含义请参考第1节
-验证运动状态切换和步态切换的结果时，应查看此上报中的 
+验证运动状态切换和步态切换的结果时，应查看此上报中的
 MotionState
- 和 
+ 和
 Gait
  字段。
 ﻿
 5.2 运控状态上报（Type=1002 Cmd=4）
-运控状态由 RobotServer 以 
+运控状态由 RobotServer 以
 10Hz
  频率主动推送，包含机身姿态、线速度和 16 个关节的详细状态。
 JSON 上报
@@ -553,8 +553,7 @@ m/s
 5. Type=1002, Cmd=6 : 查看步态 Gait
 6. Type=2, Cmd=21 (20Hz) → 下发轴指令
 7. 停止：停止发送轴指令即可
-相关文档： 
+相关文档：
 basic_server 通信协议总览
-| 
+|
 软件开发指南
- 

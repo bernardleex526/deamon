@@ -12,3 +12,4 @@ maps/
 
 .operator-token
 *.token
+.pytest_cache/

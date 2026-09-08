@@ -13,7 +13,7 @@ std::string WebCommManager::getLocalIP() {
     getifaddrs(&ifAddrStruct);
     for (auto ifa = ifAddrStruct; ifa != NULL; ifa = ifa->ifa_next) {
         if (!ifa->ifa_addr) continue;
-        if (ifa->ifa_addr->sa_family == AF_INET) { 
+        if (ifa->ifa_addr->sa_family == AF_INET) {
             tmpAddrPtr = &((struct sockaddr_in *)ifa->ifa_addr)->sin_addr;
             char addressBuffer[INET_ADDRSTRLEN];
             inet_ntop(AF_INET, tmpAddrPtr, addressBuffer, INET_ADDRSTRLEN);
@@ -32,10 +32,10 @@ std::string WebCommManager::getLocalIP() {
 void WebCommManager::start() {
     if (running_) return;
     running_ = true;
-    
+
     http_server_ = std::make_unique<httplib::Server>();
     if (!web_root_.empty()) http_server_->set_mount_point("/", web_root_);
-    
+
     // API: 获取状态
     http_server_->Get("/api/status", [this](const httplib::Request&, httplib::Response& res) {
         std::ostringstream oss;
@@ -46,7 +46,7 @@ void WebCommManager::start() {
         oss << ",\"target\":{\"x\":" << tx << ",\"y\":" << ty << "}}";
         res.set_content(oss.str(), "application/json");
     });
-    
+
     // API: 设置目标
     http_server_->Post("/api/set_target", [this](const httplib::Request& req, httplib::Response& res) {
         double x = 0, y = 0;
@@ -56,7 +56,7 @@ void WebCommManager::start() {
         }
         res.set_content("{\"ok\":true}", "application/json");
     });
-    
+
     // API: 设置运动使能
     http_server_->Post("/api/set_moving", [this](const httplib::Request& req, httplib::Response& res) {
         bool enabled = req.body.find("true") != std::string::npos;
@@ -64,7 +64,7 @@ void WebCommManager::start() {
         log(std::string("Web运动使能: ") + (enabled ? "开启" : "关闭"));
         res.set_content("{\"ok\":true}", "application/json");
     });
-    
+
     // API: 设置激活
     http_server_->Post("/api/set_active", [this](const httplib::Request& req, httplib::Response& res) {
         bool active = req.body.find("true") != std::string::npos;
@@ -72,12 +72,12 @@ void WebCommManager::start() {
         log(std::string("Web跟随功能: ") + (active ? "开启" : "关闭"));
         res.set_content("{\"ok\":true}", "application/json");
     });
-    
+
     http_thread_ = std::thread([this]() {
         log("HTTP服务器启动在端口 " + std::to_string(HTTP_PORT));
         http_server_->listen("0.0.0.0", HTTP_PORT);
     });
-    
+
     startWebSocketServer();
 }
 
@@ -99,7 +99,7 @@ void WebCommManager::broadcastData() {
     double tx, ty; state_.getTarget(tx, ty);
     double vx, vy, wz; state_.getVelocity(vx, vy, wz);
     auto points = state_.getPoints();
-    
+
     std::ostringstream oss;
     oss << std::fixed << std::setprecision(3);
     oss << "{\"type\":\"scan_data\",";
@@ -109,7 +109,7 @@ void WebCommManager::broadcastData() {
     oss << "\"mode\":" << state_.control_mode.load() << ",";
     oss << "\"velocity\":{\"vx\":" << vx << ",\"vy\":" << vy << ",\"wz\":" << wz << "},";
     oss << "\"rectangle_width\":" << RECTANGLE_WIDTH << ",\"points\":[";
-    
+
     size_t max_points = 180;
     size_t step = points.size() > max_points ? points.size() / max_points : 1;
     bool first = true;
@@ -125,15 +125,15 @@ void WebCommManager::broadcastData() {
 void WebCommManager::startWebSocketServer() {
     ws_server_socket_ = socket(AF_INET, SOCK_STREAM, 0);
     if (ws_server_socket_ < 0) { log("创建WebSocket服务器socket失败"); return; }
-    
+
     int opt = 1;
     setsockopt(ws_server_socket_, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
-    
+
     struct sockaddr_in addr{};
     addr.sin_family = AF_INET;
     addr.sin_addr.s_addr = INADDR_ANY;
     addr.sin_port = htons(WS_PORT);
-    
+
     if (bind(ws_server_socket_, (struct sockaddr*)&addr, sizeof(addr)) < 0) {
         log("绑定WebSocket端口失败"); close(ws_server_socket_); ws_server_socket_ = -1; return;
     }
@@ -159,7 +159,7 @@ void WebCommManager::handleWebSocketClient(int fd) {
     int n = recv(fd, buffer, sizeof(buffer) - 1, 0);
     if (n <= 0) { close(fd); return; }
     buffer[n] = '\0';
-    
+
     std::string request(buffer);
     std::string ws_key;
     size_t key_pos = request.find("Sec-WebSocket-Key:");
@@ -170,15 +170,15 @@ void WebCommManager::handleWebSocketClient(int fd) {
         if (end != std::string::npos) ws_key = request.substr(key_pos, end - key_pos);
     }
     if (ws_key.empty()) { close(fd); return; }
-    
+
     std::string accept_key = computeWebSocketAcceptKey(ws_key);
     std::ostringstream oss;
     oss << "HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Accept: " << accept_key << "\r\n\r\n";
     send(fd, oss.str().c_str(), oss.str().size(), 0);
-    
+
     { std::lock_guard<std::mutex> lock(ws_clients_mutex_); ws_clients_.insert(fd); }
     log("WebSocket客户端已连接");
-    
+
     while (running_) {
         struct pollfd pfd = {fd, POLLIN, 0};
         if (poll(&pfd, 1, 100) <= 0) continue;
@@ -186,7 +186,7 @@ void WebCommManager::handleWebSocketClient(int fd) {
         if (!recvWebSocketMessage(fd, message)) break;
         if (!message.empty()) handleWebSocketMessage(message);
     }
-    
+
     { std::lock_guard<std::mutex> lock(ws_clients_mutex_); ws_clients_.erase(fd); }
     close(fd);
     log("WebSocket客户端已断开");
@@ -244,7 +244,7 @@ bool WebCommManager::recvWebSocketMessage(int fd, std::string& message) {
     if (opcode == 0x08) return false;
     bool masked = header[1] & 0x80;
     uint64_t payload_len = header[1] & 0x7F;
-    
+
     if (payload_len == 126) {
         unsigned char ext[2];
         if (recv(fd, ext, 2, 0) != 2) return false;
@@ -255,10 +255,10 @@ bool WebCommManager::recvWebSocketMessage(int fd, std::string& message) {
         payload_len = 0;
         for (int i = 0; i < 8; i++) payload_len = (payload_len << 8) | ext[i];
     }
-    
+
     unsigned char mask[4] = {0};
     if (masked) { if (recv(fd, mask, 4, 0) != 4) return false; }
-    
+
     if (payload_len > 0 && payload_len < 65536) {
         std::vector<char> data(payload_len);
         size_t received = 0;

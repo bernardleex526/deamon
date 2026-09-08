@@ -54,7 +54,7 @@ ctrlmcu_node
 MCU 控制通信，与底层电机驱动器交互
 ﻿
 system_status_node
- / 
+ /
 cpu_node
 ﻿
 系统监控

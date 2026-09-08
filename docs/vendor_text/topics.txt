@@ -80,9 +80,9 @@ yesense.service
 IMU
 ﻿
 网段说明
-：31 网段 = 
+：31 网段 =
 10.21.31.x
-，33 网段 = 
+，33 网段 =
 10.21.33.x
 。
 ﻿
@@ -167,7 +167,7 @@ LocationStatusValue data
 处理方式
 0
 未初始化
-使用定位初始化指令或 
+使用定位初始化指令或
 drmap apply
  后初始化
 1
@@ -250,7 +250,7 @@ remain_mile
 float32
 km
 预估剩余续航
-其中 
+其中
 gait
  字段的参数值具体含义如下：
 十六进制值
@@ -304,7 +304,7 @@ MetaType header
     uint32 nsec
 MotionStateValue data
   int32 state
-其中 
+其中
 state
  字段的参数值具体含义如下：
 十六进制值
@@ -362,7 +362,7 @@ MetaType header
     uint32 nsec
 GaitValue data
   uint32 gait
-其中 
+其中
 gait
  字段的参数值具体含义如下：
 十六进制值
@@ -434,9 +434,9 @@ yaw_vel
 float32
 rad/s
 偏航角速度
-该话题仅在导航模式下有效，推荐频率≥ 10Hz。当 
+该话题仅在导航模式下有效，推荐频率≥ 10Hz。当
 planner
-在运行，或 
+在运行，或
 charge_manager
 自主充电状态未处于空闲状态时，可能会发生冲突。
 ﻿
@@ -599,6 +599,6 @@ struct NavSatValue {
 ﻿
 相关文档：
 ROS 2 / DDS 接口总览
- | 
+ |
 设备与传感器概览
 ﻿

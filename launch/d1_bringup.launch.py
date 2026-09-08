@@ -5,7 +5,7 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     pkg_name = 'd1_bringup'
-    
+
     # 获取 yaml 文件路径
     config_file = os.path.join(
         get_package_share_directory(pkg_name),

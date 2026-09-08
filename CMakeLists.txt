@@ -29,7 +29,7 @@ install(PROGRAMS scripts/m20_cloud_probe.py scripts/m20_status_probe.py
 include_directories(include)
 
 # 编译robot_nexus节点（模块化版本）
-add_executable(robot_nexus 
+add_executable(robot_nexus
   src/robot_nexus.cpp
   src/web_comm.cpp
   src/android_comm.cpp
@@ -41,7 +41,7 @@ ament_target_dependencies(robot_nexus
   std_msgs
   std_srvs
 )
-target_link_libraries(robot_nexus 
+target_link_libraries(robot_nexus
   ${OpenCV_LIBS}
   Threads::Threads
 )
@@ -49,7 +49,7 @@ target_include_directories(robot_nexus PUBLIC ${OpenCV_INCLUDE_DIRS})
 
 # 编译keyboard_cmd节点
 add_executable(keyboard_cmd src/keyboard_cmd.cpp)
-ament_target_dependencies(keyboard_cmd 
+ament_target_dependencies(keyboard_cmd
 "rclcpp" "geometry_msgs"
 )
 
