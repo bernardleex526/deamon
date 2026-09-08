@@ -1,73 +1,86 @@
-cmake_minimum_required(VERSION 3.16)
-project(m20_follow_control LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.8)
+project(jie_deamon)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+# 设置C++17标准
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 17)
+endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+# 查找依赖
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(std_srvs REQUIRED)
+find_package(OpenCV REQUIRED)
 find_package(Threads REQUIRED)
+ament_python_install_package(m20_adapter)
+install(PROGRAMS scripts/m20_bridge scripts/m20_mock_inputs DESTINATION lib/${PROJECT_NAME})
+install(PROGRAMS scripts/m20_cloud_probe.py scripts/m20_status_probe.py
+  DESTINATION lib/${PROJECT_NAME})
 
-add_library(m20_follow_core SHARED
-  src/follow_controller.cpp
-  src/m20_protocol.cpp
-  src/pointcloud_wire.cpp
+# 包含目录
+include_directories(include)
+
+# 编译robot_nexus节点（模块化版本）
+add_executable(robot_nexus 
+  src/robot_nexus.cpp
+  src/web_comm.cpp
+  src/android_comm.cpp
 )
-target_include_directories(m20_follow_core PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>
+ament_target_dependencies(robot_nexus
+  rclcpp
+  sensor_msgs
+  geometry_msgs
+  std_msgs
+  std_srvs
+)
+target_link_libraries(robot_nexus 
+  ${OpenCV_LIBS}
+  Threads::Threads
+)
+target_include_directories(robot_nexus PUBLIC ${OpenCV_INCLUDE_DIRS})
+
+# 编译keyboard_cmd节点
+add_executable(keyboard_cmd src/keyboard_cmd.cpp)
+ament_target_dependencies(keyboard_cmd 
+"rclcpp" "geometry_msgs"
 )
 
-add_executable(m20_follow_node src/follow_node.cpp)
-target_include_directories(m20_follow_node PRIVATE include)
-ament_target_dependencies(m20_follow_node rclcpp sensor_msgs geometry_msgs std_msgs)
-target_link_libraries(m20_follow_node m20_follow_core Threads::Threads)
-
-add_executable(m20_udp_bridge src/m20_udp_bridge_node.cpp)
-target_include_directories(m20_udp_bridge PRIVATE include)
-ament_target_dependencies(m20_udp_bridge rclcpp geometry_msgs std_msgs)
-target_link_libraries(m20_udp_bridge m20_follow_core Threads::Threads)
-
+# 安装可执行文件
 install(TARGETS
-  m20_follow_core
-  m20_follow_node
-  m20_udp_bridge
-  EXPORT export_m20_follow_control
-  ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION lib
-  RUNTIME DESTINATION lib/${PROJECT_NAME}
+  robot_nexus
+  keyboard_cmd
+  DESTINATION lib/${PROJECT_NAME}
 )
-install(DIRECTORY include/ DESTINATION include)
-install(DIRECTORY config launch DESTINATION share/${PROJECT_NAME})
+
+# 安装launch文件
+install(DIRECTORY
+  launch
+  config
+  DESTINATION share/${PROJECT_NAME}/
+)
+
+# 安装web静态文件
+install(DIRECTORY
+  web
+  DESTINATION share/${PROJECT_NAME}/
+)
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
-  ament_add_gtest(test_follow_controller test/test_follow_controller.cpp)
-  if(TARGET test_follow_controller)
-    target_include_directories(test_follow_controller PRIVATE include)
-    target_link_libraries(test_follow_controller m20_follow_core)
-  endif()
-  ament_add_gtest(test_m20_protocol test/test_m20_protocol.cpp)
-  if(TARGET test_m20_protocol)
-    target_include_directories(test_m20_protocol PRIVATE include)
-    target_link_libraries(test_m20_protocol m20_follow_core)
-  endif()
-  ament_add_gtest(test_pointcloud_wire test/test_pointcloud_wire.cpp)
-  if(TARGET test_pointcloud_wire)
-    target_include_directories(test_pointcloud_wire PRIVATE include)
-    target_link_libraries(test_pointcloud_wire m20_follow_core)
-  endif()
+  ament_add_gtest(test_m20_tracker test/test_m20_tracker.cpp)
+  ament_target_dependencies(test_m20_tracker sensor_msgs geometry_msgs)
+  target_include_directories(test_m20_tracker PRIVATE ${OpenCV_INCLUDE_DIRS})
+  target_link_libraries(test_m20_tracker ${OpenCV_LIBS} Threads::Threads)
+  find_package(ament_lint_auto REQUIRED)
+  ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_export_targets(export_m20_follow_control HAS_LIBRARY_TARGET)
-ament_export_include_directories(include)
-ament_export_libraries(m20_follow_core)
 ament_package()
