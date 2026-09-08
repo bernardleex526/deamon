@@ -154,22 +154,22 @@ Items
 一个JSON的ASDU案例如下：
 10
 {
-	"PatrolDevice": {
-		"Type": 1002,
-		"Command": 1,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
-		}
-	}
+    "PatrolDevice": {
+        "Type": 1002,
+        "Command": 1,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
+        }
+    }
 }
 一个XML的ASDU案例如下：
 8
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>1002</Type>
-	<Command>1</Command>
-	<Time>2023-01-01 00:00:00</Time>
-	<Items/>
+    <Type>1002</Type>
+    <Command>1</Command>
+    <Time>2023-01-01 00:00:00</Time>
+    <Items/>
 </PatrolDevice>
 ﻿
 ﻿
@@ -191,22 +191,22 @@ Command字段值
 JSON格式请求：
 10
 {
-	"PatrolDevice": {
-		"Type": 100,
-		"Command": 100,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
-		}
-	}
+    "PatrolDevice": {
+        "Type": 100,
+        "Command": 100,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
+        }
+    }
 }
 XML格式请求：
 8
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>100</Type>
-	<Command>100</Command>
-	<Time>2023-01-01 00:00:00</Time>
-	<Items/>
+    <Type>100</Type>
+    <Command>100</Command>
+    <Time>2023-01-01 00:00:00</Time>
+    <Items/>
 </PatrolDevice>
 该请求消息中，Items字段不包含任何参数项。
 ﻿
@@ -225,25 +225,25 @@ Command字段值
 JSON格式请求：
 11
 {
-	"PatrolDevice": {
-		"Type": 1101,
-		"Command": 5,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
+    "PatrolDevice": {
+        "Type": 1101,
+        "Command": 5,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
              "Mode": 0
-		}
-	}
+        }
+    }
 }
 XML格式请求：
 10
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>1101</Type>
-	<Command>5</Command>
-	<Time>2023-01-01 00:00:00</Time>
-	<Items>
-		<Mode>0</Mode>
-	</Items>
+    <Type>1101</Type>
+    <Command>5</Command>
+    <Time>2023-01-01 00:00:00</Time>
+    <Items>
+        <Mode>0</Mode>
+    </Items>
 </PatrolDevice>
 该请求消息中，Items字段包含以下参数项：
 参数项
@@ -279,23 +279,23 @@ Command字段值
 JSON格式请求：
 11
 {
-	"PatrolDevice": {
-		"Type": 2,
-		"Command": 22,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
+    "PatrolDevice": {
+        "Type": 2,
+        "Command": 22,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
             "MotionParam":0
-		}
-	}
+        }
+    }
 }
 XML格式请求：
 10
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
   <Type>2</Type>
-	<Command>22</Command>
-	<Time>2023-01-01 00:00:00</Time>
-	<Items>
+    <Command>22</Command>
+    <Time>2023-01-01 00:00:00</Time>
+    <Items>
       <MotionParam>0</MotionParam>
     </Items>
 </PatrolDevice>
@@ -335,25 +335,25 @@ Command字段值
 JSON格式请求：
 11
 {
-	"PatrolDevice": {
-		"Type": 2,
-		"Command": 23,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
+    "PatrolDevice": {
+        "Type": 2,
+        "Command": 23,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
              "GaitParam": 0
-		}
-	}
+        }
+    }
 }
 XML格式请求：
 10
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>2</Type>
-	<Command>23</Command>
-	<Time>2023-01-01 00:00:00</Time>
-	<Items>
-		<GaitParam>0</GaitParam>
-	</Items>
+    <Type>2</Type>
+    <Command>23</Command>
+    <Time>2023-01-01 00:00:00</Time>
+    <Items>
+        <GaitParam>0</GaitParam>
+    </Items>
 </PatrolDevice>
 该请求消息中，Items字段包含以下参数项：
 参数项
@@ -389,35 +389,35 @@ Command字段值
 JSON格式请求：
 16
 {
-	"PatrolDevice": {
-		"Type": 2,
-		"Command": 21,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
+    "PatrolDevice": {
+        "Type": 2,
+        "Command": 21,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
              "X": 0.0,
              "Y": 0.0,
              "Z": 0.0,
              "Roll": 0.0,
              "Pitch": 0.0,
              "Yaw": 0.0
-		}
-	}
+        }
+    }
 }
 XML格式请求：
 15
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>2</Type>
-	<Command>21</Command>
-	<Time>2023-01-01 00:00:00</Time>
-	<Items>
-		<X>0.0</X>
-		<Y>0.0</Y>
-		<Z>0.0</Z>
-		<Roll>0.0</Roll>
-		<Pitch>0.0</Pitch>
-		<Yaw>0.0</Yaw>
-	</Items>
+    <Type>2</Type>
+    <Command>21</Command>
+    <Time>2023-01-01 00:00:00</Time>
+    <Items>
+        <X>0.0</X>
+        <Y>0.0</Y>
+        <Z>0.0</Z>
+        <Roll>0.0</Roll>
+        <Pitch>0.0</Pitch>
+        <Yaw>0.0</Yaw>
+    </Items>
 </PatrolDevice>
 该请求消息中，Items字段包含以下参数项：
 参数项
@@ -482,27 +482,27 @@ Command字段值
 JSON格式请求：
 12
 {
-	"PatrolDevice": {
-		"Type": 1101,
-		"Command": 2,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
+    "PatrolDevice": {
+        "Type": 1101,
+        "Command": 2,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
              "Front": 0,
              "Back": 0
-		}
-	}
+        }
+    }
 }
 XML格式请求：
 11
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>1101</Type>
-	<Command>2</Command>
-	<Time>2023-01-01 00:00:00</Time>
-	<Items>
-		<Front>0</Front>
-		<Back>0</Back>
-	</Items>
+    <Type>1101</Type>
+    <Command>2</Command>
+    <Time>2023-01-01 00:00:00</Time>
+    <Items>
+        <Front>0</Front>
+        <Back>0</Back>
+    </Items>
 </PatrolDevice>
 该请求消息中，Items字段包含以下参数项：
 参数项
@@ -651,47 +651,47 @@ Command字段值
 JSON格式响应：
 22
 {
-	"PatrolDevice": {
-		"Type": 1002,
-		"Command": 6,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
-			"BasicStatus": {
-				"MotionState": 0,
-				"Gait": 0,
-				"Charge":0,
-				"HES"：0,
-				"ControlUsageMode"：0,
-				"Direction"：0,
-				"OOA"：0,
-				"PowerManagement"：0,
-				"Sleep"：0,
-				"Version"：STD
-			}
-		}
-	}
+    "PatrolDevice": {
+        "Type": 1002,
+        "Command": 6,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
+            "BasicStatus": {
+                "MotionState": 0,
+                "Gait": 0,
+                "Charge":0,
+                "HES"：0,
+                "ControlUsageMode"：0,
+                "Direction"：0,
+                "OOA"：0,
+                "PowerManagement"：0,
+                "Sleep"：0,
+                "Version"：STD
+            }
+        }
+    }
 }
 XML格式响应：
 21
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>1002</Type>
-	<Command>6</Command>
-	<Time>2023-01-01 00:00:01</Time>
-	<Items>
-		<BasicStatus>
-			<MotionState>0</MotionState>
-			<Gait>0</Gait>
-			<Charge>0</Charge>
-			<HES>0</HES>
-			<ControlUsageMode>0</ControlUsageMode>
-			<Direction>0</Direction>
-			<OOA>0</OOA>
-			<PowerManagement>0</PowerManagement>
-			<Sleep>0</Sleep>
-			<Version>STD</Version>
-		</BasicStatus>
-	</Items>
+    <Type>1002</Type>
+    <Command>6</Command>
+    <Time>2023-01-01 00:00:01</Time>
+    <Items>
+        <BasicStatus>
+            <MotionState>0</MotionState>
+            <Gait>0</Gait>
+            <Charge>0</Charge>
+            <HES>0</HES>
+            <ControlUsageMode>0</ControlUsageMode>
+            <Direction>0</Direction>
+            <OOA>0</OOA>
+            <PowerManagement>0</PowerManagement>
+            <Sleep>0</Sleep>
+            <Version>STD</Version>
+        </BasicStatus>
+    </Items>
 </PatrolDevice>
 Items字段中的部分参数项含义如下：
 参数项
@@ -831,45 +831,45 @@ XML格式响应：
 43
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>1002</Type>
-	<Command>4</Command>
-	<Time>2023-01-01 00:00:01</Time>
-	<Items>
-		<MotionStatus>
-			<Roll>0.0</Roll>
-			<Pitch>0.0</Pitch>
-			<Yaw>0.0</Yaw>
-			<OmegaZ>0.0</OmegaZ>
-			<LinearX>0.0</LinearX>
-			<LinearY>0.0</LinearY>
-			<Height>0.0</Height>
-			<Payload>0.0</Payload>
-			<RemainMile>0.0</RemainMile>
-		</MotionStatus>
-		<MotorStatus>
+    <Type>1002</Type>
+    <Command>4</Command>
+    <Time>2023-01-01 00:00:01</Time>
+    <Items>
+        <MotionStatus>
+            <Roll>0.0</Roll>
+            <Pitch>0.0</Pitch>
+            <Yaw>0.0</Yaw>
+            <OmegaZ>0.0</OmegaZ>
+            <LinearX>0.0</LinearX>
+            <LinearY>0.0</LinearY>
+            <Height>0.0</Height>
+            <Payload>0.0</Payload>
+            <RemainMile>0.0</RemainMile>
+        </MotionStatus>
+        <MotorStatus>
             <joint>0.0</joint>
             <joint>0.0</joint>
             <joint>0.0</joint>
             <joint>0.0</joint>
             ...#16个元素对应16个关节
-			<LeftFrontHipX>0.0</LeftFrontHipX>
-			<LeftFrontHipY>0.0</LeftFrontHipY>
-			<LeftFrontKnee>0.0</LeftFrontKnee>
-			<LeftFrontWheel>0.0</LeftFrontWheel>
-			<RightFrontHipX>0.0</RightFrontHipX>
-			<RightFrontHipY>0.0</RightFrontHipY>
-			<RightFrontKnee>0.0</RightFrontKnee>
-			<RightFrontWheel>0.0</RightFrontWheel>
-			<LeftBackHipX>0.0</LeftBackHipX>
-			<LeftBackHipY>0.0</LeftBackHipY>
-			<LeftBackKnee>0.0</LeftBackKnee>
-			<LeftBackWheel>0.0</LeftBackWheel>
-			<RightBackHipX>0.0</RightBackHipX>
-			<RightBackHipY>0.0</RightBackHipY>
-			<RightBackKnee>0.0</RightBackKnee>
-			<RightBackWheel>0.0</RightBackWheel>
-		</MotorStatus>
-	</Items>
+            <LeftFrontHipX>0.0</LeftFrontHipX>
+            <LeftFrontHipY>0.0</LeftFrontHipY>
+            <LeftFrontKnee>0.0</LeftFrontKnee>
+            <LeftFrontWheel>0.0</LeftFrontWheel>
+            <RightFrontHipX>0.0</RightFrontHipX>
+            <RightFrontHipY>0.0</RightFrontHipY>
+            <RightFrontKnee>0.0</RightFrontKnee>
+            <RightFrontWheel>0.0</RightFrontWheel>
+            <LeftBackHipX>0.0</LeftBackHipX>
+            <LeftBackHipY>0.0</LeftBackHipY>
+            <LeftBackKnee>0.0</LeftBackKnee>
+            <LeftBackWheel>0.0</LeftBackWheel>
+            <RightBackHipX>0.0</RightBackHipX>
+            <RightBackHipY>0.0</RightBackHipY>
+            <RightBackKnee>0.0</RightBackKnee>
+            <RightBackWheel>0.0</RightBackWheel>
+        </MotorStatus>
+    </Items>
 </PatrolDevice>
 该响应消息中，Items字段包含MotionStatus和MotorStatus两组参数。
 MotionStatus参数组反馈机器人整机的运动状态信息：
@@ -947,11 +947,11 @@ Command字段值
 JSON格式响应：
 124
 {
-	"PatrolDevice": {
-		"Type": 1002,
-		"Command": 5,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
+    "PatrolDevice": {
+        "Type": 1002,
+        "Command": 5,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
             "BatteryList":[
               {
                 "Voltage":0.0,
@@ -968,106 +968,106 @@ JSON格式响应：
                 "serial":"xxx"
               }
             ],
-			"BatteryStatus": {
-				"VoltageLeft": 0.0,
-				"VoltageRight": 0.0,
-				"BatteryLevelLeft": 0.0,
-				"BatteryLevelRight": 0.0,
-				"battery_temperatureLeft": 0.0,
-				"battery_temperatureRight": 0.0,
-				"chargeLeft":false,
-				"chargeRight":false
-			},
-			"DeviceTemperature": {
+            "BatteryStatus": {
+                "VoltageLeft": 0.0,
+                "VoltageRight": 0.0,
+                "BatteryLevelLeft": 0.0,
+                "BatteryLevelRight": 0.0,
+                "battery_temperatureLeft": 0.0,
+                "battery_temperatureRight": 0.0,
+                "chargeLeft":false,
+                "chargeRight":false
+            },
+            "DeviceTemperature": {
                 "Motor": [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
                 "Driver": [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
-				"LeftFrontHipXMotor": 0.0,
-				"LeftFrontHipXDriver": 0.0,
-				"LeftFrontHipYMotor": 0.0,
-				"LeftFrontHipYDriver": 0.0,
-				"LeftFrontKneeMotor": 0.0,
-				"LeftFrontKneeDriver": 0.0,
-				"LeftFrontWheelMotor": 0.0,
-				"LeftFrontWheelDriver": 0.0,
-				"RightFrontHipXMotor": 0.0,
-				"RightFrontHipXDriver": 0.0,
-				"RightFrontHipYMotor": 0.0,
-				"RightFrontHipYDriver": 0.0,
-				"RightFrontKneeMotor": 0.0,
-				"RightFrontKneeDriver": 0.0,
-				"RightFrontWheelMotor": 0.0,
-				"RightFrontWheelDriver": 0.0,
-				"LeftBackHipXMotor": 0.0,
-				"LeftBackHipXDriver": 0.0,
-				"LeftBackHipYMotor": 0.0,
-				"LeftBackHipYDriver": 0.0,
-				"LeftBackKneeMotor": 0.0,
-				"LeftBackKneeDriver": 0.0,
-				"LeftBackWheelMotor": 0.0,
-				"LeftBackWheelDriver": 0.0,
-				"RightBackHipXMotor": 0.0,
-				"RightBackHipXDriver": 0.0,
-				"RightBackHipYMotor": 0.0,
-				"RightBackHipYDriver": 0.0,
-				"RightBackKneeMotor": 0.0,
-				"RightBackKneeDriver": 0.0,
-				"RightBackWheelMotor": 0.0,
-				"RightBackWheelDriver": 0.0
-			},
-			"Led": {
-				"Fill": {
-					"Front":1,
-					"Back":1
-  				}
-			},
-			"GPS": {
-				"Latitude":0.0,
-				"Longitude":0.0,
- 				"Speed":0.0,
-				"Course":0.0,
-				"FixQuality":0.0,
-				"NumSatellites":0,
-				"Altitude":0.0,
-				"HDOP":0.0,
-				"VDOP":0,
-				"PDOP":0.0,
-				"VisibleSatellites":0
-			},
-			"DevEnable":{
-				"FanSpeed":100,
-				"LoadPower":1,
-				"LedHost":1,
-				"LedExt":1,
-				"FP":1,
-				"Lidar":{
-					"Front":1,
-					"Back":1
-				},
-				"GPS":1,
-				"Video":{
-					"Front":1,
-					"Back":1
-				}
-			},
-			"CPU":{
-				"AOS":{
-					"Temperature":0.0,
-					"FrequencyInt":0.0,
-					"FrequencyApp":0.0
-				},
-				"NOS":{
-					"Temperature":0.0,
-					"FrequencyInt":0.0,
-					"FrequencyApp":0.0
-				},
-				"GOS":{
-					"Temperature":0.0,
-					"FrequencyInt":0.0,
-					"FrequencyApp":0.0
-				}
-			}
-		}
-	}
+                "LeftFrontHipXMotor": 0.0,
+                "LeftFrontHipXDriver": 0.0,
+                "LeftFrontHipYMotor": 0.0,
+                "LeftFrontHipYDriver": 0.0,
+                "LeftFrontKneeMotor": 0.0,
+                "LeftFrontKneeDriver": 0.0,
+                "LeftFrontWheelMotor": 0.0,
+                "LeftFrontWheelDriver": 0.0,
+                "RightFrontHipXMotor": 0.0,
+                "RightFrontHipXDriver": 0.0,
+                "RightFrontHipYMotor": 0.0,
+                "RightFrontHipYDriver": 0.0,
+                "RightFrontKneeMotor": 0.0,
+                "RightFrontKneeDriver": 0.0,
+                "RightFrontWheelMotor": 0.0,
+                "RightFrontWheelDriver": 0.0,
+                "LeftBackHipXMotor": 0.0,
+                "LeftBackHipXDriver": 0.0,
+                "LeftBackHipYMotor": 0.0,
+                "LeftBackHipYDriver": 0.0,
+                "LeftBackKneeMotor": 0.0,
+                "LeftBackKneeDriver": 0.0,
+                "LeftBackWheelMotor": 0.0,
+                "LeftBackWheelDriver": 0.0,
+                "RightBackHipXMotor": 0.0,
+                "RightBackHipXDriver": 0.0,
+                "RightBackHipYMotor": 0.0,
+                "RightBackHipYDriver": 0.0,
+                "RightBackKneeMotor": 0.0,
+                "RightBackKneeDriver": 0.0,
+                "RightBackWheelMotor": 0.0,
+                "RightBackWheelDriver": 0.0
+            },
+            "Led": {
+                "Fill": {
+                    "Front":1,
+                    "Back":1
+                }
+            },
+            "GPS": {
+                "Latitude":0.0,
+                "Longitude":0.0,
+                "Speed":0.0,
+                "Course":0.0,
+                "FixQuality":0.0,
+                "NumSatellites":0,
+                "Altitude":0.0,
+                "HDOP":0.0,
+                "VDOP":0,
+                "PDOP":0.0,
+                "VisibleSatellites":0
+            },
+            "DevEnable":{
+                "FanSpeed":100,
+                "LoadPower":1,
+                "LedHost":1,
+                "LedExt":1,
+                "FP":1,
+                "Lidar":{
+                    "Front":1,
+                    "Back":1
+                },
+                "GPS":1,
+                "Video":{
+                    "Front":1,
+                    "Back":1
+                }
+            },
+            "CPU":{
+                "AOS":{
+                    "Temperature":0.0,
+                    "FrequencyInt":0.0,
+                    "FrequencyApp":0.0
+                },
+                "NOS":{
+                    "Temperature":0.0,
+                    "FrequencyInt":0.0,
+                    "FrequencyApp":0.0
+                },
+                "GOS":{
+                    "Temperature":0.0,
+                    "FrequencyInt":0.0,
+                    "FrequencyApp":0.0
+                }
+            }
+        }
+    }
 }
 XML格式响应：
 132
@@ -1441,24 +1441,24 @@ Command字段值
 JSON格式响应：
 21
 {
-	"PatrolDevice": {
-		"Type": 1002,
-		"Command": 3,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
-			"ErrorList":[
-			{
-				"errorCode": errorCode,
-				"component": value
-			},
-			{
-				"errorCode": errorCode,
-				"component": value
-			},
-			…//其它省略的错误
-			]
-		}
-	}
+    "PatrolDevice": {
+        "Type": 1002,
+        "Command": 3,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
+            "ErrorList":[
+            {
+                "errorCode": errorCode,
+                "component": value
+            },
+            {
+                "errorCode": errorCode,
+                "component": value
+            },
+            …//其它省略的错误
+            ]
+        }
+    }
 }
 XML格式响应：
 17
@@ -1619,52 +1619,52 @@ Command字段值
 JSON格式请求：
 10
 {
-	"PatrolDevice": {
-		"Type": 1101,
-		"Command": 7,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
-		}
-	}
+    "PatrolDevice": {
+        "Type": 1101,
+        "Command": 7,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
+        }
+    }
 }
 XML格式请求：
 9
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>1101</Type>
-	<Command>7</Command>
-	<Time>2023-01-01 00:00:00</Time>
-	<Items>
-	</Items>
+    <Type>1101</Type>
+    <Command>7</Command>
+    <Time>2023-01-01 00:00:00</Time>
+    <Items>
+    </Items>
 </PatrolDevice>
 该请求消息中，Items字段不包含任何参数项。
 响应
 JSON格式响应：
 13
 {
-	"PatrolDevice": {
-		"Type": 1101,
-		"Command": 7,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
-			"Sleep":false,
-			"Auto":true,
-			"Time":5
-		}
-	}
+    "PatrolDevice": {
+        "Type": 1101,
+        "Command": 7,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
+            "Sleep":false,
+            "Auto":true,
+            "Time":5
+        }
+    }
 }
 XML格式响应：
 12
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>1101</Type>
-	<Command>7</Command>
-	<Time>2023-01-01 00:00:01</Time>
-	<Items>
-		<Sleep>0</Sleep>
-		<Auto>0</Auto>
-		<Time>5</Time>
-	</Items>
+    <Type>1101</Type>
+    <Command>7</Command>
+    <Time>2023-01-01 00:00:01</Time>
+    <Items>
+        <Sleep>0</Sleep>
+        <Auto>0</Auto>
+        <Time>5</Time>
+    </Items>
 </PatrolDevice>
 Items字段中的参数项含义如下：
 参数项
@@ -1708,31 +1708,31 @@ Command字段值
 JSON格式请求：
 14
 {
-	"PatrolDevice": {
-		"Type": 2101,
-		"Command": 1,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
-			"PosX":0.0,
-			"PosY":0.0,
-			"PosZ":0.0,
-			"Yaw":0.0
-		}
-	}
+    "PatrolDevice": {
+        "Type": 2101,
+        "Command": 1,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
+            "PosX":0.0,
+            "PosY":0.0,
+            "PosZ":0.0,
+            "Yaw":0.0
+        }
+    }
 }
 XML格式请求：
 13
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>2101</Type>
-	<Command>1</Command>
-	<Time>2023-01-01 00:00:00</Time>
-	<Items>
-		<PosX>0.0</PosX>
-		<PosY>0.0</PosY>
-		<PosZ>0.0</PosZ>
-		<Yaw>0.0</Yaw>
-	</Items>
+    <Type>2101</Type>
+    <Command>1</Command>
+    <Time>2023-01-01 00:00:00</Time>
+    <Items>
+        <PosX>0.0</PosX>
+        <PosY>0.0</PosY>
+        <PosZ>0.0</PosZ>
+        <Yaw>0.0</Yaw>
+    </Items>
 </PatrolDevice>
 该请求消息中，Items字段包含以下参数项：
 参数项
@@ -1769,25 +1769,25 @@ rad
 JSON格式响应：
 11
 {
-	"PatrolDevice": {
-		"Type": 2101,
-		"Command": 1,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
-			"ErrorCode":0
-		}
-	}
+    "PatrolDevice": {
+        "Type": 2101,
+        "Command": 1,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
+            "ErrorCode":0
+        }
+    }
 }
 XML格式响应：
 10
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>2101</Type>
-	<Command>1</Command>
-	<Time>2023-01-01 00:00:01</Time>
-	<Items>
-		<ErrorCode>1</ErrorCode>
-	</Items>
+    <Type>2101</Type>
+    <Command>1</Command>
+    <Time>2023-01-01 00:00:01</Time>
+    <Items>
+        <ErrorCode>1</ErrorCode>
+    </Items>
 </PatrolDevice>
 一次响应可能包含多组Error，每组Error包含以下参数项：
 参数项
@@ -1819,60 +1819,60 @@ Command字段值
 JSON格式请求：
 10
 {
-	"PatrolDevice": {
-		"Type": 1007,
-		"Command": 2,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
-		}
-	}
+    "PatrolDevice": {
+        "Type": 1007,
+        "Command": 2,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
+        }
+    }
 }
 XML格式请求：
 9
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>1007</Type>
-	<Command>2</Command>
-	<Time>2023-01-01 00:00:00</Time>
-	<Items>
-	</Items>
+    <Type>1007</Type>
+    <Command>2</Command>
+    <Time>2023-01-01 00:00:00</Time>
+    <Items>
+    </Items>
 </PatrolDevice>
 该请求消息中，Items字段不包含任何参数项。
 响应
 JSON格式响应：
 17
 {
-	"PatrolDevice": {
-		"Type": 1007,
-		"Command": 2,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
-			"Location":1,
-			"PosX":0.0,
-			"PosY":0.0,
-			"PosZ":0.0,
-			"Roll":0.0,
-			"Pitch":0.0,
- 			"Yaw":0.0
-		}
-	}
+    "PatrolDevice": {
+        "Type": 1007,
+        "Command": 2,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
+            "Location":1,
+            "PosX":0.0,
+            "PosY":0.0,
+            "PosZ":0.0,
+            "Roll":0.0,
+            "Pitch":0.0,
+            "Yaw":0.0
+        }
+    }
 }
 XML格式响应：
 16
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>1007</Type>
-	<Command>2</Command>
-	<Time>2023-01-01 00:00:01</Time>
-	<Items>
-		<Location>1</Location>
-		<PosX>0.0</PosX>
-		<PosY>0.0</PosY>
-		<PosZ>0.0</PosZ>
-		<Roll>0.0</Roll>
-		<Pitch>0.0</Pitch>
-		<Yaw>0.0</Yaw>
-	</Items>
+    <Type>1007</Type>
+    <Command>2</Command>
+    <Time>2023-01-01 00:00:01</Time>
+    <Items>
+        <Location>1</Location>
+        <PosX>0.0</PosX>
+        <PosY>0.0</PosY>
+        <PosZ>0.0</PosZ>
+        <Roll>0.0</Roll>
+        <Pitch>0.0</Pitch>
+        <Yaw>0.0</Yaw>
+    </Items>
 </PatrolDevice>
 Items字段中的参数项含义如下：
 参数项
@@ -1909,50 +1909,50 @@ Command字段值
 JSON格式请求：
 10
 {
-	"PatrolDevice": {
-		"Type": 2002,
-		"Command": 1,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
-		}
-	}
+    "PatrolDevice": {
+        "Type": 2002,
+        "Command": 1,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
+        }
+    }
 }
 XML格式请求：
 9
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>2002</Type>
-	<Command>1</Command>
-	<Time>2023-01-01 00:00:00</Time>
-	<Items>
-	</Items>
+    <Type>2002</Type>
+    <Command>1</Command>
+    <Time>2023-01-01 00:00:00</Time>
+    <Items>
+    </Items>
 </PatrolDevice>
 该请求消息中，Items字段不包含任何参数项。
 响应
 JSON格式响应：
 12
 {
-	"PatrolDevice": {
-		"Type": 2002,
-		"Command": 1,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
-			"Location":1,
-			"ObsState":0.0
-		}
-	}
+    "PatrolDevice": {
+        "Type": 2002,
+        "Command": 1,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
+            "Location":1,
+            "ObsState":0.0
+        }
+    }
 }
 XML格式响应：
 11
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>2002</Type>
-	<Command>1</Command>
-	<Time>2023-01-01 00:00:01</Time>
-	<Items>
-		<Location>1</Location>
-		<ObsState>0.0</ObsState>
-	</Items>
+    <Type>2002</Type>
+    <Command>1</Command>
+    <Time>2023-01-01 00:00:01</Time>
+    <Items>
+        <Location>1</Location>
+        <ObsState>0.0</ObsState>
+    </Items>
 </PatrolDevice>
 Items字段中的参数项含义如下：
 参数项
@@ -1987,11 +1987,11 @@ Command字段值
 JSON格式请求：
 23
 {
-	"PatrolDevice": {
-		"Type": 1003,
-		"Command": 1,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
+    "PatrolDevice": {
+        "Type": 1003,
+        "Command": 1,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
              "Value": 0,
              "MapID": 0,
              "PosX": 0,
@@ -2004,30 +2004,30 @@ JSON格式请求：
              "Manner": 0,
              "ObsMode": 0,
              "NavMode": 0
-		}
-	}
+        }
+    }
 }
 XML格式请求：
 21
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>1003</Type>
-	<Command>1</Command>
-	<Time>2023-01-01 00:00:00</Time>
-	<Items>
-		<Value>0</Value>
-		<MapID>0</MapID>
-		<PosX>0.0</PosX>
-		<PosY>0.0</PosY>
-		<PosZ>0.0</PosZ>
-		<AngleYaw>0.0</AngleYaw>
-		<PointInfo>0</PointInfo>
-		<Gait>0</Gait>
-		<Speed>0</Speed>
-		<Manner>0</Manner>
-		<ObsMode>0</ObsMode>
-		<NavMode>0</NavMode>
-	</Items>
+    <Type>1003</Type>
+    <Command>1</Command>
+    <Time>2023-01-01 00:00:00</Time>
+    <Items>
+        <Value>0</Value>
+        <MapID>0</MapID>
+        <PosX>0.0</PosX>
+        <PosY>0.0</PosY>
+        <PosZ>0.0</PosZ>
+        <AngleYaw>0.0</AngleYaw>
+        <PointInfo>0</PointInfo>
+        <Gait>0</Gait>
+        <Speed>0</Speed>
+        <Manner>0</Manner>
+        <ObsMode>0</ObsMode>
+        <NavMode>0</NavMode>
+    </Items>
 </PatrolDevice>
 该请求消息中，Items字段包含多个参数项。
 【注意】
@@ -2142,29 +2142,29 @@ int
 JSON格式响应：
 13
 {
-	"PatrolDevice": {
-		"Type": 1003,
-		"Command": 1,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
-			"Value":0,
-			"Status":0,
-			"ErrorCode":0
-		}
-	}
+    "PatrolDevice": {
+        "Type": 1003,
+        "Command": 1,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
+            "Value":0,
+            "Status":0,
+            "ErrorCode":0
+        }
+    }
 }
 XML格式响应：
 12
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>1003</Type>
-	<Command>1</Command>
-	<Time>2023-01-01 00:00:01</Time>
-	<Items>
-		<Value>0</Value>
-		<Status>0</Status>
-		<ErrorCode>0</ErrorCode>
-	</Items>
+    <Type>1003</Type>
+    <Command>1</Command>
+    <Time>2023-01-01 00:00:01</Time>
+    <Items>
+        <Value>0</Value>
+        <Status>0</Status>
+        <ErrorCode>0</ErrorCode>
+    </Items>
 </PatrolDevice>
 该响应消息中，Items字段包含以下参数项：
 参数项
@@ -2288,47 +2288,47 @@ Command字段值
 JSON格式请求：
 10
 {
-	"PatrolDevice": {
-		"Type": 1004,
-		"Command": 1,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
-		}
-	}
+    "PatrolDevice": {
+        "Type": 1004,
+        "Command": 1,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
+        }
+    }
 }
 XML格式请求：
 8
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>1004</Type>
-	<Command>1</Command>
-	<Time>2023-01-01 00:00:00</Time>
-	<Items/>
+    <Type>1004</Type>
+    <Command>1</Command>
+    <Time>2023-01-01 00:00:00</Time>
+    <Items/>
 </PatrolDevice>
 该请求消息中，Items字段不包含任何参数项。
 响应
 JSON格式响应：
 11
 {
-	"PatrolDevice": {
-		"Type": 1004,
-		"Command": 1,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
-			"ErrorCode":0
-		}
-	}
+    "PatrolDevice": {
+        "Type": 1004,
+        "Command": 1,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
+            "ErrorCode":0
+        }
+    }
 }
 XML格式响应：
 10
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>1004</Type>
-	<Command>1</Command>
-	<Time>2023-01-01 00:00:01</Time>
-	<Items>
-		<ErrorCode>1</ErrorCode>
-	</Items>
+    <Type>1004</Type>
+    <Command>1</Command>
+    <Time>2023-01-01 00:00:01</Time>
+    <Items>
+        <ErrorCode>1</ErrorCode>
+    </Items>
 </PatrolDevice>
 Items字段中的参数项含义如下：
 参数项
@@ -2354,51 +2354,51 @@ Command字段值
 JSON格式请求：
 10
 {
-	"PatrolDevice": {
-		"Type": 1007,
-		"Command": 1,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
-		}
-	}
+    "PatrolDevice": {
+        "Type": 1007,
+        "Command": 1,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
+        }
+    }
 }
 XML格式请求：
 8
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>1007</Type>
-	<Command>1</Command>
-	<Time>2023-01-01 00:00:00</Time>
-	<Items/>
+    <Type>1007</Type>
+    <Command>1</Command>
+    <Time>2023-01-01 00:00:00</Time>
+    <Items/>
 </PatrolDevice>
 该请求消息中，Items字段不包含任何参数项。
 响应
 JSON格式响应：
 13
 {
-	"PatrolDevice": {
-		"Type": 1007,
-		"Command": 1,
-		"Time": "2023-01-01 00:00:00",
-		"Items": {
-			"Value":0,
-			"Status":0,
-			"ErrorCode":0
-		}
-	}
+    "PatrolDevice": {
+        "Type": 1007,
+        "Command": 1,
+        "Time": "2023-01-01 00:00:00",
+        "Items": {
+            "Value":0,
+            "Status":0,
+            "ErrorCode":0
+        }
+    }
 }
 XML格式响应：
 12
 <?xml version="1.0" encoding="UTF-8"?>
 <PatrolDevice>
-	<Type>1007</Type>
-	<Command>1</Command>
-	<Time>2023-01-01 00:00:01</Time>
-	<Items>
-		<Value>0</Value>
-		<Status>0</Status>
-		<ErrorCode>0</ErrorCode>
-	</Items>
+    <Type>1007</Type>
+    <Command>1</Command>
+    <Time>2023-01-01 00:00:01</Time>
+    <Items>
+        <Value>0</Value>
+        <Status>0</Status>
+        <ErrorCode>0</ErrorCode>
+    </Items>
 </PatrolDevice>
 Items字段中的参数项含义如下：
 参数项

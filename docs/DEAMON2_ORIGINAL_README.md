@@ -319,12 +319,12 @@ relay because it can be active for the boot while disabled at boot.
 
 ## Evidence and Documents
 
-- [M20 adaptation boundary and protocol reasoning](docs/M20_ADAPTATION.md)
-- [Expanded runbook and acceptance template](docs/M20_RUNBOOK.md)
-- [September 7 GOS deployment record](docs/M20_DEPLOYMENT_2026-09-07.md)
-- [September 8 near-obstacle observation](docs/M20_GUARD_CHECK_2026-09-08.md)
-- [September 8 sensor, RViz, and dry-run record](docs/M20_DRY_RUN_2026-09-08.md)
-- [Vendor evidence index](docs/M20_SOURCES.md)
+- [M20 adaptation boundary and protocol reasoning](M20_ADAPTATION.md)
+- [Expanded runbook and acceptance template](M20_RUNBOOK.md)
+- [September 7 GOS deployment record](M20_DEPLOYMENT_2026-09-07.md)
+- [September 8 near-obstacle observation](M20_GUARD_CHECK_2026-09-08.md)
+- [September 8 sensor, RViz, and dry-run record](M20_DRY_RUN_2026-09-08.md)
+- [Vendor evidence index](M20_SOURCES.md)
 
 ## Repository Layout
 
