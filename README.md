@@ -198,8 +198,9 @@ ros2 run jie_deamon m20_mock_inputs
 ros2 run jie_deamon m20_follow_sim --report /tmp/m20_follow_sim.json
 ```
 
-`m20_follow_sim` 会拒绝在 `ROS_DOMAIN_ID=0` 或未设 `ROS_LOCALHOST_ONLY=1` 时运行；
-它启动自己的 launch，全程 dry-run，不接触 AOS。
+`m20_follow_sim` 启动自己的 launch，全程 dry-run，不接触 AOS。它强制隔离：
+未设置 ROS 环境时自动使用 `ROS_DOMAIN_ID=83` + `ROS_LOCALHOST_ONLY=1`；
+显式指定 `ROS_DOMAIN_ID=0`（机器人域）或 `ROS_LOCALHOST_ONLY=0` 会被拒绝。
 
 ---
 

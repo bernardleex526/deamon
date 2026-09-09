@@ -185,9 +185,25 @@ SCENARIOS = [
 ]
 
 
+def ensure_isolated_environment():
+    """Force an isolated ROS domain before ``rclpy.init()``.
+
+    An explicitly requested robot domain (``ROS_DOMAIN_ID=0``) or a non-localhost
+    setting is refused.  When nothing is configured, the simulation selects the
+    isolated domain itself so CI and a fresh development shell work unchanged.
+    """
+    domain = os.environ.get('ROS_DOMAIN_ID', '')
+    local_only = os.environ.get('ROS_LOCALHOST_ONLY', '')
+    if domain == '0':
+        raise SystemExit('refusing to run in ROS_DOMAIN_ID=0 (robot domain)')
+    if local_only not in ('', '1'):
+        raise SystemExit('refusing to run with ROS_LOCALHOST_ONLY=%r' % local_only)
+    os.environ['ROS_DOMAIN_ID'] = domain or '83'
+    os.environ['ROS_LOCALHOST_ONLY'] = '1'
+
+
 def run(args):
-    if os.environ.get('ROS_LOCALHOST_ONLY') != '1' or os.environ.get('ROS_DOMAIN_ID') in (None, '', '0'):
-        raise SystemExit('refusing to run: set ROS_DOMAIN_ID=83 ROS_LOCALHOST_ONLY=1')
+    ensure_isolated_environment()
     launch = None
     if not args.no_launch:
         launch = subprocess.Popen(
