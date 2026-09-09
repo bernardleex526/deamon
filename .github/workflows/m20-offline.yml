@@ -33,3 +33,4 @@ jobs:
           ros2 launch jie_deamon m20.launch.py --show-args
           python3 test/ros_m20_smoke.py
           python3 test/ros_operator_smoke.py
+          python3 -m m20_adapter.follow_sim --report /tmp/m20_follow_sim.json
