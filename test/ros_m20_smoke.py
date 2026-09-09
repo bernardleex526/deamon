@@ -22,7 +22,8 @@ from m20_adapter.mock_inputs import MockInputs
 def main():
     process = subprocess.Popen(
         ['ros2', 'launch', 'jie_deamon', 'm20.launch.py',
-         'cloud_topic:=/m20/mock_points', 'dry_run:=true', 'enable_web:=false'], start_new_session=True)
+         'cloud_topic:=/m20/mock_points', 'dry_run:=true', 'enable_web:=false'],
+        start_new_session=True)
     rclpy.init()
     mock, observer = MockInputs(), Node('m20_smoke_observer')
     executor = SingleThreadedExecutor()
@@ -52,6 +53,13 @@ def main():
                 return
         raise AssertionError('ROS condition timed out: ' + repr(observed))
 
+    def spin(seconds):
+        end = time.monotonic() + seconds
+        while time.monotonic() < end:
+            if process.poll() is not None:
+                raise AssertionError('launch exited unexpectedly')
+            executor.spin_once(timeout_sec=0.05)
+
     def call(name, enabled):
         client = observer.create_client(SetBool, name)
         until(client.service_is_ready)
@@ -61,6 +69,28 @@ def main():
         until(future.done)
         assert future.result().success, future.result().message
 
+    def arm(timeout=12.):
+        """Arm with retries.
+
+        The gate deliberately refuses to arm until the velocity stream is live
+        (reason ``no fresh command stream``) and the scan is clear, so an operator
+        retries instead of being granted a grace window that expires at once.
+        """
+        end = time.monotonic() + timeout
+        message = ''
+        while time.monotonic() < end:
+            client = observer.create_client(SetBool, '/m20/arm')
+            until(client.service_is_ready)
+            request = SetBool.Request()
+            request.data = True
+            future = client.call_async(request)
+            until(future.done)
+            message = future.result().message
+            if future.result().success:
+                return
+            spin(0.3)
+        raise AssertionError('arm never accepted: ' + message)
+
     try:
         until(lambda: observed['scan_at'] > 0 and bool(observed['status']))
         assert observed['guarded'] == 0. and not observed['status']['armed']
@@ -68,7 +98,7 @@ def main():
         target.publish(Point(x=1.8, y=0., z=0.))
         call('/robot_nexus/set_moving', True)
         until(lambda: observed['raw'] > 0.2)
-        call('/m20/arm', True)
+        arm()
         until(lambda: observed['guarded'] > 0.2)
         mock.set_parameters([Parameter('target', value=False)])
         until(lambda: observed['raw'] == 0. and observed['guarded'] == 0.)
@@ -79,7 +109,7 @@ def main():
         fresh_after = time.monotonic() + 0.2
         until(lambda: observed['scan_at'] > fresh_after)
         assert observed['guarded'] == 0. and not observed['status']['armed']
-        call('/m20/arm', True)
+        arm()
         until(lambda: observed['guarded'] > 0.2)
         executor.remove_node(mock)
         until(lambda: not observed['status'].get('armed') and observed['guarded'] == 0.)

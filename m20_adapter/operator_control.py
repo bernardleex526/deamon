@@ -100,7 +100,7 @@ class OperatorControl:
                 velocity = self.vector(request.get('velocity'), 3)
                 self.raw_velocity = velocity
                 if not self.preview:
-                    self.guard.update_command(velocity)
+                    self.guard.update_command(velocity, source='operator')
             self.last_input = self.clock()
         else:
             raise ValueError('unsupported operation')
@@ -110,7 +110,8 @@ class OperatorControl:
         if self.owner and self.mode == 'follow':
             self.raw_velocity = self.vector(list(velocity), 3)
             if not self.preview:
-                self.guard.update_command(velocity)
+                # Algorithm output keeps the algorithm reverse policy.
+                self.guard.update_command(velocity, source='algorithm')
 
     def snapshot(self):
         return dict(owner=self.owner, mode=self.mode, target=self.target,

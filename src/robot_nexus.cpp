@@ -58,6 +58,12 @@ public:
         this->declare_parameter<double>("frame_left", ROBOT_FRAME_LEFT);
         this->declare_parameter<double>("frame_right", ROBOT_FRAME_RIGHT);
         this->declare_parameter<double>("direct_timeout", 0.3);
+        this->declare_parameter<bool>("enable_lateral", false);
+        this->declare_parameter<double>("lateral_gain", LATERAL_GAIN);
+        this->declare_parameter<double>("lateral_max", LATERAL_MAX);
+        this->declare_parameter<double>("lateral_deadband", LATERAL_DEADBAND);
+        this->declare_parameter<double>("lateral_sign", 1.0);
+        this->declare_parameter<double>("min_forward_speed", 0.0);
         LidarTracker::Config tracker_config;
         tracker_config.scan_yaw = get_parameter("scan_yaw").as_double();
         tracker_config.follow_distance = get_parameter("follow_distance").as_double();
@@ -66,16 +72,27 @@ public:
         tracker_config.frame_back = get_parameter("frame_back").as_double();
         tracker_config.frame_left = get_parameter("frame_left").as_double();
         tracker_config.frame_right = get_parameter("frame_right").as_double();
+        tracker_config.enable_lateral = get_parameter("enable_lateral").as_bool();
+        tracker_config.lateral_gain = get_parameter("lateral_gain").as_double();
+        tracker_config.lateral_max = get_parameter("lateral_max").as_double();
+        tracker_config.lateral_deadband = get_parameter("lateral_deadband").as_double();
+        tracker_config.lateral_sign = get_parameter("lateral_sign").as_double();
+        tracker_config.min_forward_speed = get_parameter("min_forward_speed").as_double();
         shared_state_.direct_timeout = get_parameter("direct_timeout").as_double();
         for (double value : {tracker_config.follow_distance, tracker_config.corridor_width,
                 tracker_config.frame_front, tracker_config.frame_back, tracker_config.frame_left,
-                tracker_config.frame_right, shared_state_.direct_timeout}) {
+                tracker_config.frame_right, shared_state_.direct_timeout,
+                tracker_config.lateral_gain, tracker_config.lateral_max,
+                tracker_config.lateral_deadband}) {
             if (!std::isfinite(value) || value <= 0.0) {
                 throw std::invalid_argument("geometry and timeout parameters must be positive and finite");
             }
         }
-        if (!std::isfinite(tracker_config.scan_yaw)) {
-            throw std::invalid_argument("scan_yaw must be finite");
+        for (double value : {tracker_config.scan_yaw, tracker_config.lateral_sign,
+                tracker_config.min_forward_speed}) {
+            if (!std::isfinite(value)) {
+                throw std::invalid_argument("scan_yaw, lateral_sign and min_forward_speed must be finite");
+            }
         }
         lidar_tracker_.configure(tracker_config);
         shared_state_.setTarget(tracker_config.follow_distance, 0.0);

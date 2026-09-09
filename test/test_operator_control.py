@@ -7,7 +7,9 @@ from m20_adapter.operator_control import OperatorControl
 class OperatorTests(unittest.TestCase):
     def setUp(self):
         self.now = 10.
-        self.guard = Guard(clock=lambda: self.now)
+        # The operator gateway owns the command stream, so arming does not require
+        # a pre-existing one (the bridge constructs its guard the same way).
+        self.guard = Guard(clock=lambda: self.now, arm_requires_command=False)
         self.guard.update_status(dict(MotionState=17, Gait=12290, Charge=0,
                                       HES=0, ControlUsageMode=1, Sleep=0, Direction=0))
         self.guard.update_scan(True, True)

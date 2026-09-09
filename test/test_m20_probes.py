@@ -1,9 +1,17 @@
 import contextlib
+import importlib.util
 import io
+import pathlib
 import unittest
 from unittest.mock import Mock, patch
 
-from scripts import m20_status_probe
+# Load by path: a real ROS package named ``scripts`` can shadow the directory on
+# some installations (seen on ROS 2 Humble in /opt/ros/humble/.../dist-packages).
+_SPEC = importlib.util.spec_from_file_location(
+    'm20_status_probe',
+    pathlib.Path(__file__).resolve().parent.parent / 'scripts' / 'm20_status_probe.py')
+m20_status_probe = importlib.util.module_from_spec(_SPEC)
+_SPEC.loader.exec_module(m20_status_probe)
 
 
 class StatusProbeTests(unittest.TestCase):

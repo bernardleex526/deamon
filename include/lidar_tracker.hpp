@@ -29,6 +29,15 @@ public:
         double frame_back = ROBOT_FRAME_BACK;
         double frame_left = ROBOT_FRAME_LEFT;
         double frame_right = ROBOT_FRAME_RIGHT;
+        // M20: lateral (corridor centering) is opt-in and fail-closed. The D1
+        // original used the corridor half-width as the initial boundary, which
+        // made a single observed wall command ~0.7 m/s sideways.
+        bool enable_lateral = false;
+        double lateral_gain = LATERAL_GAIN;
+        double lateral_max = LATERAL_MAX;
+        double lateral_deadband = LATERAL_DEADBAND;
+        double lateral_sign = 1.0;
+        double min_forward_speed = 0.0;
     };
     void configure(const Config& config) { config_ = config; }
     using VelocityCallback = std::function<void(const geometry_msgs::msg::Twist&)>;
@@ -111,6 +120,8 @@ public:
         double target_vec_len = std::sqrt(target_vec_x * target_vec_x + target_vec_y * target_vec_y);
         double left_y_min = -config_.corridor_width / 2;
         double right_y_min = config_.corridor_width / 2;
+        bool left_seen = false;
+        bool right_seen = false;
 
         // 势场法：排斥力累积和最近障碍距离
         double repulse_x = 0.0, repulse_y = 0.0;
@@ -192,8 +203,10 @@ public:
 
                     if (proj_y > 0 && proj_y > left_y_min) {
                         left_y_min = proj_y;
+                        left_seen = true;
                     } else if (proj_y <= 0 && proj_y < right_y_min) {
                         right_y_min = proj_y;
+                        right_seen = true;
                     }
                 }
             }
@@ -223,6 +236,18 @@ public:
             }
         }
 
+        // 走廊居中：仅在双侧墙都真实观测到、且走廊宽度合理时才可信
+        double lateral_error = 0.0;
+        bool lateral_valid = false;
+        if (config_.enable_lateral && left_seen && right_seen) {
+            double width = left_y_min - right_y_min;
+            if (width >= LATERAL_MIN_CORRIDOR && width <= LATERAL_MAX_CORRIDOR) {
+                // 走廊中心相对机身的横向偏移（正=中心在左侧）
+                lateral_error = 0.5 * (left_y_min + right_y_min);
+                lateral_valid = true;
+            }
+        }
+
         // 计算速度
         geometry_msgs::msg::Twist cmd_vel_msg;
         int mode = state_.control_mode.load();
@@ -237,7 +262,7 @@ public:
         else if (mode == MODE_FOLLOW && points_in_target_count > 0) {
             state_.getTarget(target_x, target_y);
             calculateFollowVelocity(cmd_vel_msg, target_x, target_y,
-                                    left_y_min, right_y_min,
+                                    lateral_error, lateral_valid,
                                     repulse_x, repulse_y, min_obstacle_dist);
         }
 
@@ -315,7 +340,7 @@ private:
 
     // 计算跟随速度（带势场避障）
     void calculateFollowVelocity(geometry_msgs::msg::Twist& cmd, double target_x, double target_y,
-                                  double left_y_min, double right_y_min,
+                                  double lateral_error, bool lateral_valid,
                                   double repulse_x, double repulse_y, double min_obstacle_dist) {
         // 紧急停止检查
         if (min_obstacle_dist < APF_EMERGENCY_DIST) {
@@ -333,9 +358,10 @@ private:
             cmd.linear.x = dist_error * LINEAR_SCALE_FACTOR;
             if (cmd.linear.x < 0) cmd.linear.x *= 0.8;
 
-            double min_speed = 0.06;
-            if (std::abs(cmd.linear.x) < min_speed) {
-                cmd.linear.x = (cmd.linear.x > 0) ? min_speed : -min_speed;
+            if (config_.min_forward_speed > 0.0 &&
+                std::abs(cmd.linear.x) < config_.min_forward_speed) {
+                cmd.linear.x = (cmd.linear.x > 0) ? config_.min_forward_speed
+                                                  : -config_.min_forward_speed;
             }
         }
 
@@ -347,18 +373,21 @@ private:
             cmd.angular.z = angle_error * ANGULAR_SCALE_FACTOR;
         }
 
-        // 横向运动控制（带死区）
-        double lateral_error = -(left_y_min + right_y_min);
-        if (std::abs(lateral_error) > 1.0) lateral_error = 0.0;
-        if (std::abs(lateral_error) < 0.03) {
-            cmd.linear.y = 0.0;
+        // 横向运动控制（带死区）：默认关闭；仅双侧走廊可信时按比例居中
+        if (config_.enable_lateral && lateral_valid &&
+            std::abs(lateral_error) > config_.lateral_deadband) {
+            double lateral_cmd = lateral_error * config_.lateral_gain * config_.lateral_sign;
+            cmd.linear.y = std::clamp(lateral_cmd, -config_.lateral_max, config_.lateral_max);
         } else {
-            cmd.linear.y = lateral_error * LINEAR_Y_SCALE_FACTOR;
+            cmd.linear.y = 0.0;
         }
 
-        // 融合势场排斥力
+        // 融合势场排斥力；横向排斥力同样只在显式启用横移时使用，
+        // 否则由桥的停止区门控负责安全（停车而不是侧移）。
         cmd.linear.x += repulse_x;
-        cmd.linear.y += repulse_y;
+        if (config_.enable_lateral) {
+            cmd.linear.y += repulse_y;
+        }
 
         // 接近障碍时减速
         if (min_obstacle_dist < APF_SLOWDOWN_DIST) {

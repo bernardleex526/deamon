@@ -20,6 +20,11 @@ constexpr double LINEAR_SCALE_FACTOR = 0.5;   // 前后运动速度比例系数
 constexpr double ANGULAR_SCALE_FACTOR = 1.0;  // 旋转运动速度比例系数
 constexpr double LINEAR_Y_SCALE_FACTOR = 1.0; // 左右运动速度比例系数
 constexpr double RECTANGLE_WIDTH = 0.35;      // 矩形宽度 (米)
+constexpr double LATERAL_GAIN = 0.5;          // 走廊居中比例系数（M20 默认关闭）
+constexpr double LATERAL_MAX = 0.3;           // 横向速度上限 (米/秒)
+constexpr double LATERAL_DEADBAND = 0.05;     // 横向死区 (米)
+constexpr double LATERAL_MIN_CORRIDOR = 0.2;  // 双侧墙都看到时的最小走廊宽度 (米)
+constexpr double LATERAL_MAX_CORRIDOR = 3.0;  // 走廊过宽视为不可信 (米)
 
 // 速度限制
 constexpr double MAX_LINEAR_SPEED = 1.0;
