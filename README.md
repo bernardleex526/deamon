@@ -1,3 +1,7 @@
+> **本仓库已归档（2026-11-06）**：代码连同完整提交历史已并入
+> [`bernardleex526/deamon2`](https://github.com/bernardleex526/deamon2) 的 `src/jie_deamon_operator`
+> （包名改为 `jie_deamon_operator`），后续只在那里维护。
+
 # deamon / jie_deamon — M20 Pro 跟随与远程控制
 
 云深处 **山猫 M20 Pro** 四足机器人的二维雷达跟随 + 手机/Android 远程控制网关。
